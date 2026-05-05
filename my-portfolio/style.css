@@ -1,0 +1,52 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	font-family: Arial, sans-serif;
+	line-height: 1.6;
+	background: #f4f4f4;
+	color: #222;
+}
+
+header, main, footer {
+	max-width: 900px;
+	margin: 0 auto;
+	padding: 20px;
+}
+
+main section + section {
+	margin-top: 24px;
+}
+
+section h2 {
+	margin-top: 0;
+}
+
+header {
+	background: #ffffff;
+	border-bottom: 1px solid #ddd;
+}
+
+article {
+	margin-top: 12px;
+	padding: 12px;
+	background: #fafafa;
+	border-left: 4px solid #444;
+}
+
+article h3 {
+	margin: 0 0 6px;
+}
+
+.kontejner {
+	display: flex;
+	gap: 15px;
+	align-items: stretch;
+}
+
+
+footer {
+	color: #666;
+}
