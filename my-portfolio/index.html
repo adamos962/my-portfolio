@@ -7,38 +7,80 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <main>
-        <section>
+    <header class="hero">
+        <div class="hero__topbar">
+                <p class="hero__brand">Adam Novák / Portfolio</p>
+            <nav aria-label="Hlavní navigace">
+                <a href="#o-mne">O mně</a>
+                <a href="#projekty">Projekty</a>
+                <a href="#dovednosti">Dovednosti</a>
+                <a href="#kontakt">Kontakt</a>
+            </nav>
+        </div>
+
+        <h1>Adam Novák</h1>
+            <p class="hero__subtitle">Student SPŠ v Třebíči, který staví weby s čistou strukturou a jednoduchým vizuálním jazykem.</p>
+            <a class="hero__cta" href="#projekty">Prohlédnout práci</a>
+    </header>
+
+    <main class="obsah">
+        <section id="o-mne" class="karta">
             <h2>O mně</h2>
             <p>
-                Jsem začínající webový vývojář a tvořím jednoduché stránky a malé projekty.
+                Tvořím jednoduché webové stránky a menší projekty, na kterých se učím HTML, CSS a práci s GitHubem.
             </p>
-
             <p>
-                Jsem 18ti letý student Střední průmyslové školy v Třebíči
-            </p>
-
-            <p>
+                Aktuálně se soustředím hlavně na čistou strukturu, přehledné rozložení a základní responzivitu.
             </p>
         </section>
 
-        <section class="projekty">
+        <section id="projekty" class="karta">
             <h2>Projekty</h2>
 
-            <article>
-                <h3>Osobní portfolio</h3>
-                <p>
-                    Jednoduchá prezentační stránka vytvořená pomocí HTML a CSS.
-                </p>
-            </article>
+            <ul class="projekty-grid">
+                <li class="projekt-karta">
+                    <article>
+                            <p class="project-kicker">01</p>
+                        <h3>Osobní portfolio</h3>
+                        <p>
+                            Stránka, na které právě jsi. Cíl byl navrhnout čistý obsah, srozumitelnou navigaci a
+                            přehlednou strukturu sekcí.
+                        </p>
+                        <p class="stack">HTML, CSS</p>
+                    </article>
+                </li>
 
-            <article>
-                <h3>Hra - školní projekt</h3>
-                <p>
-                    Menší cvičný projekt zaměřený na vývoj her.
-                </p>
-            </article>
+                <li class="projekt-karta">
+                    <article>
+                            <p class="project-kicker">02</p>
+                        <h3>Hra - školní projekt</h3>
+                        <p>
+                            Menší cvičný projekt zaměřený na logiku, návrh obrazovek a postupné vylepšování podle
+                            zpětné vazby.
+                        </p>
+                        <p class="stack">Návrh, testování, iterace</p>
+                    </article>
+                </li>
+            </ul>
+        </section>
+
+        <section id="dovednosti" class="karta">
+            <h2>Dovednosti</h2>
+            <ul class="seznam-dovednosti">
+                <li>HTML5</li>
+                <li>CSS3</li>
+                <li>Základy JavaScriptu</li>
+                <li>Git a GitHub</li>
+            </ul>
         </section>
     </main>
+
+    <footer id="kontakt" class="karta karta--footer">
+        <h2>Kontakt</h2>
+        <address class="kontakt-data">
+            <p>Email: <a href="mailto:novaka.07@spst.eu">novaka.07@spst.eu</a></p>
+            <p>GitHub: <a href="https://github.com/adamos962" target="_blank" rel="noopener noreferrer">github.com/adamos962</a></p>
+        </address>
+    </footer>
 </body>
 </html>
