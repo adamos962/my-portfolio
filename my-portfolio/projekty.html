@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projekty | Portfolio</title>
+    <link rel="icon" type="image/png" href="LOGO.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="hero">
+        <div class="hero__topbar">
+            <a class="hero__brand" href="index.html" aria-label="Přejít na hlavní stránku">
+                <img class="hero__logo" src="LOGO.png" alt="Logo Adam Novák">
+                <span>Adam Novak | Portfolio</span>
+            </a>
+            <nav aria-label="Hlavni navigace">
+                <a href="index.html">Domů</a>
+                <a href="projekty.html" aria-current="page">Projekty a Práce</a>
+                <a href="index.html#kontakt">Kontakt</a>
+            </nav>
+        </div>
+
+        <h1>Projekty</h1>
+        <p class="hero__subtitle">Přehled projektů, na kterých jsem se podílel.</p>
+    </header>
+
+    <main class="obsah">
+        <section class="karta">
+            <h2>Vybrané Projekty</h2>
+            <ul class="projekty-grid">
+                <li class="projekt-karta">
+                    <article>
+                        <p class="project-kicker">01</p>
+                        <h3>Objednávkový formulář</h3>
+                        <p class="projekt-popis">
+                            Full-stack objednávkový formulář od frontendu v HTML/CSS/JS po backend v PHP a databázi MySQL.
+                        </p>
+                        <div class="project-media" aria-label="Ukazky z projektu Objednavkovy formular">
+                            <img src="okazka.png" alt="Ukazka z projektu Objednavkovy formular 1">
+                            <img src="okazka2.png" alt="Ukazka z projektu Objednavkovy formular 2">
+                        </div>
+                        <p class="stack">HTML, CSS, JavaScript, PHP, MySQL</p>
+                    </article>
+                </li>
+
+                <li class="projekt-karta">
+                    <article>
+                        <p class="project-kicker">02</p>
+                        <h3>Hra - školní projekt</h3>
+                        <p class="projekt-popis">
+                            Tvorba herních 3D assetů v rámci high-to-low poly pipeline.
+                        </p>
+                        <div class="project-media" aria-label="Ukazky z projektu Hra">
+                            <img src="hra1.png" alt="Ukazka z projektu Hra 1">
+                            <img src="hra2.png" alt="Ukazka z projektu Hra 2">
+                        </div>
+                        <p class="stack">Blender, návrh</p>
+                    </article>
+                </li>
+            </ul>
+        </section>
+
+        <h1>Práce</h1>
+        <p class="hero__subtitle">Věci, na kterých aktivně pracuji.</p>
+        
+        <section class="karta">
+    <div class="work-list">
+        <article class="work-item work-item--with-img">
+            <div class="work-content">
+                <h3>Programování</h3>
+                <p class="work-text">
+                    Momentálně se učím programovat v C++ a C# (OOP, algoritmy, datové struktury, datum a čas, výjimky a další..)
+                </p>
+                <p class="stack">Visual Studio Code, Cursor</p>
+            </div>
+            <div class="work-image">
+                <img src="programovani.png" alt="Náhled rozpracovaného designu webu">
+            </div>
+        </article>
+
+        <article class="work-item work-item--with-img">
+            <div class="work-content">
+                <h3>Mikroelektronika a řízení</h3>
+                <p class="work-text">
+                    V rámci školního programu vyvíjím jednoduché programy pro mikrokontroléry. (čtečka čipů, senzory)
+                </p>
+                <p class="stack">Atmel Studio</p>
+            </div>
+            <div class="work-image">
+                <img src="atmel.png" alt="Ukázka programu v Atmel Studiu">
+            </div>
+        </article>
+
+        <article class="work-item work-item--with-img">
+            <div class="work-content">
+                <h3>Počítačové sítě</h3>
+                <p class="work-text">
+                    V rámci výuky se věnuji simulaci a konfiguraci síťových infrastruktur.
+                </p>
+                <p class="stack">Cisco Packet Tracer</p>
+            </div>
+            <div class="work-image">
+                <img src="packet.png" alt="Ukázka práce v síťovém prostředí">
+            </div>
+        </article>
+
+        <article class="work-item work-item--with-img">
+            <div class="work-content">
+                <h3>3D modelování</h3>
+                <p class="work-text">
+                    Dále se také snažím rozšiřovat své dovednosti v 3D modelování.
+                </p>
+                <p class="stack">Blender, Figma</p>
+            </div>
+            <div class="work-image">
+                <img src="ukazkablender.png" alt="Ukázka 3D modelu">
+            </div>
+        </article>
+    </div>
+</section>
+    </main>
+
+    <footer class="karta karta--footer">
+        <h2>Kontakt</h2>
+        <address class="kontakt-data">
+            <p>Email: <a href="mailto:novaka.07@spst.eu">novaka.07@spst.eu</a></p>
+            <p>GitHub: <a href="https://github.com/adamos962" target="_blank" rel="noopener noreferrer">github.com/adamos962</a></p>
+        </address>
+    </footer>
+</body>
+</html>

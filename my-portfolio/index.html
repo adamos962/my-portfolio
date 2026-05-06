@@ -4,16 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio</title>
+    <link rel="icon" type="image/png" href="LOGO.png">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header class="hero">
         <div class="hero__topbar">
-                <p class="hero__brand">Adam Novák | Portfolio</p>
+            <a class="hero__brand" href="index.html" aria-label="Přejít na hlavní stránku">
+                <img class="hero__logo hero__logo--large" src="LOGO.png" alt="Logo Adam Novák">
+                <span>Adam Novák | Portfolio</span>
+            </a>
             <nav aria-label="Hlavní navigace">
-                <a href="#o-mne">O mně</a>
-                <a href="#projekty">Projekty</a>
-                <a href="#dovednosti">Dovednosti</a>
+                <a href="index.html" aria-current="page">Domů</a>
+                <a href="projekty.html">Projekty a Práce</a>
                 <a href="#kontakt">Kontakt</a>
             </nav>
         </div>
@@ -23,58 +26,49 @@
     </header>
 
     <main class="obsah">
-        <section id="o-mne" class="karta">
-            <h2>O mně</h2>
-            <p>
-                Tvořím jednoduché webové stránky a menší projekty, na kterých se učím HTML, CSS a práci s GitHubem.
-            </p>
-            <p>
-                Aktuálně se soustředím hlavně na čistou strukturu, přehledné rozložení a základní responzivitu.
-            </p>
-        </section>
+        <section id="o-mne" class="karta about-section">
+            <div>
+                <h2>O mně</h2>
+                <p>
+                    Jsem nadšenec do webových technologií, který momentálně staví své základy na HTML a CSS. Baví mě proces, jak se z čistého kódu stává funkční stránka. Na mém GitHubu najdete mé první krůčky i komplexnější mini-projekty, na kterých se učím nejen kódovat, ale i efektivně využívat Git pro správu verzí.
+                </p>
+                <p>
+                    Aktuálně se soustředím hlavně na dokončení mého studia a přípravu na vysokou školu.
+                </p>
 
-        <section id="projekty" class="karta">
-            <h2>Projekty</h2>
-
-            <ul class="projekty-grid">
-                <li class="projekt-karta">
-                    <article>
-                            <p class="project-kicker">01</p>
-                        <h3></h3>
-                        <p>
-                            Stránka, na které právě jsi. Cíl byl navrhnout čistý obsah, srozumitelnou navigaci a
-                            přehlednou strukturu sekcí.
-                        </p>
-                        <p class="stack">HTML, CSS</p>
-                    </article>
-                </li>
-
-                <li class="projekt-karta">
-                    <article>
-                            <p class="project-kicker">02</p>
-                        <h3>Hra - školní projekt</h3>
-                        <p>
-                            Zodpovídal jsem za tvorbu herních 3D assetů v rámci high-to-low poly pipeline.“
-                        </p>
-                        <div class="project-media" aria-label="Ukázky z projektu Hra">
-                            <img src="hra1.png" alt="Ukázka z projektu Hra 1">
-                            <img src="hra2.png" alt="Ukázka z projektu Hra 2">
-                        </div>
-                        <p class="stack">Blender, návrh</p>
-                    </article>
-                </li>
-            </ul>
+                <p>
+                    Baví mě proces, jak se z čistého kódu stává funkční stránka. Na mém GitHubu najdete mé první krůčky i složitější mini-projekty, na kterých se učím nejen kódovat, ale i efektivně využívat Git pro správu verzí.
+                </p>
+                </p>
+            </div>
+            <aside class="study-timeline" aria-label="Studijní timeline">
+                <h2>Časová osa</h2>
+                <ol class="study-timeline__list">
+                    <li><span>2014-2023</span>Studium na ZŠ Český Rudolec</li>
+                    <li><span>2023</span>Začátek studia na SPŠ Třebíč, rozvíjení základních dovedností a znalostí v oblasti IT</li>
+                    <li><span>2026</span>Dlouhodobá tříměsíční stáž ve Španělsku, Sevilla</li>
+                    <li><span>Budoucnost</span>Maturita, pokračování studia na VŠ se zaměřením na Bioinformatiku</li>
+                </ol>
+            </aside>
         </section>
 
         <section id="dovednosti" class="karta">
             <h2>Dovednosti</h2>
             <ul class="seznam-dovednosti">
-                <li>HTML5</li>
-                <li>CSS3</li>
-                <li>Základy JavaScriptu</li>
-                <li>Git a GitHub</li>
+                <li>HTML</li>
+                <li>CSS</li>
+                <li>JavaScript</li>
+                <li>Atmel Studio</li>
+                <li>Adobe Cloud</li>
+                <li>C++</li>
+                <li>C#</li>
+                <li>MySQL</li>
+                <li>Cisco Packet Tracer</li>
+                <li>Blender</li>
             </ul>
         </section>
+
+        
     </main>
 
     <footer id="kontakt" class="karta karta--footer">

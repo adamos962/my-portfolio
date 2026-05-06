@@ -5,21 +5,17 @@
 	--muted: #b4aa9d;
 	--line: rgba(242, 234, 223, 0.14);
 	--accent: #e0a35f;
-	--shadow: 0 24px 56px rgba(0, 0, 0, 0.34);
 	--page-width: 1120px;
-	--page-padding-y: 22px;
-	--page-padding-x: 18px;
-	--section-gap: 20px;
-	--content-max: 650px;
 }
 
 * {
 	box-sizing: border-box;
+	user-select: none;
 }
 
 body {
 	margin: 0;
-	padding: var(--page-padding-y) var(--page-padding-x) 36px;
+	padding: 22px 18px 36px;
 	font-family: Arial, sans-serif;
 	line-height: 1.55;
 	color: var(--ink);
@@ -29,9 +25,7 @@ body {
 		var(--bg);
 }
 
-.hero,
-.obsah,
-.karta--footer {
+.hero, .obsah, .karta--footer {
 	max-width: var(--page-width);
 	margin: 0 auto;
 }
@@ -39,26 +33,43 @@ body {
 .hero {
 	padding: 22px 0 26px;
 	border-bottom: 1px solid var(--line);
-	background: transparent;
-	box-shadow: none;
 }
 
 .hero__topbar {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	gap: 18px;
 	flex-wrap: wrap;
+	gap: 18px;
 	margin-bottom: 22px;
+}
+
+.hero__brand, nav a, .karta h2, .stack, .project-kicker, .seznam-dovednosti li, .study-timeline__list span {
+	font-family: "Arial Narrow", "Helvetica Neue Condensed Bold", Impact, "Arial Black", sans-serif;
+	text-transform: uppercase;
 }
 
 .hero__brand {
 	margin: 0;
-	font-family: "Arial Narrow", "Helvetica Neue Condensed Bold", Impact, "Arial Black", sans-serif;
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
 	font-size: 0.72rem;
 	letter-spacing: 0.26em;
-	text-transform: uppercase;
 	color: var(--muted);
+	text-decoration: none;
+}
+
+.hero__logo {
+	width: 28px;
+	height: 28px;
+	object-fit: contain;
+	border-radius: 6px;
+}
+
+.hero__logo--large {
+	width: 40px;
+	height: 40px;
 }
 
 nav {
@@ -68,43 +79,21 @@ nav {
 }
 
 nav a {
-	padding: 0;
-	font-family: "Arial Narrow", "Helvetica Neue Condensed Bold", Impact, "Arial Black", sans-serif;
 	font-size: 0.72rem;
 	font-weight: 700;
 	letter-spacing: 0.22em;
-	text-transform: uppercase;
 	text-decoration: none;
 	color: var(--ink);
 }
 
-h1,
-h2,
-h3 {
+nav a[aria-current="page"] {
+	color: var(--accent);
+}
+
+h1, h2, h3 {
 	margin: 0;
 	font-family: "Arial Narrow", "Helvetica Neue Condensed Bold", Impact, "Arial Black", sans-serif;
 	line-height: 0.92;
-	font-stretch: condensed;
-}
-
-.hero__content {
-	display: grid;
-	grid-template-columns: minmax(0, 1.3fr) minmax(250px, 0.7fr);
-	gap: 26px;
-	align-items: start;
-}
-
-.hero__copy {
-	max-width: var(--content-max);
-}
-
-.eyebrow {
-	margin: 0 0 12px;
-	font-family: "Arial Narrow", "Helvetica Neue Condensed Bold", Impact, "Arial Black", sans-serif;
-	font-size: 0.7rem;
-	letter-spacing: 0.26em;
-	text-transform: uppercase;
-	color: var(--accent);
 }
 
 h1 {
@@ -115,12 +104,10 @@ h1 {
 
 h1.typewriter {
 	overflow: hidden;
-	border-right: 0.15em solid var(--accent);
 	white-space: nowrap;
+	border-right: 0.15em solid var(--accent);
 	letter-spacing: 0.15em;
-	animation: 
-		typing 3.5s steps(30, end),
-		blink-caret 0.5s step-end infinite;
+	animation: typing 3.5s steps(30, end), blink-caret 0.5s step-end infinite;
 }
 
 @keyframes typing {
@@ -140,133 +127,75 @@ h1.typewriter {
 	color: var(--muted);
 }
 
-.hero__cta {
-	display: inline-block;
-	padding: 12px 18px 10px;
-	border: 1px solid var(--line);
-	background: var(--surface);
-	color: var(--ink);
-	font-family: "Arial Narrow", "Helvetica Neue Condensed Bold", Impact, "Arial Black", sans-serif;
-	font-size: 0.72rem;
-	font-weight: 700;
-	letter-spacing: 0.22em;
-	text-transform: uppercase;
-	text-decoration: none;
-}
-
-.hero__panel {
-	padding: 22px;
-	border: 1px solid var(--line);
-	background: var(--surface);
-}
-
-.panel__label {
-	margin: 0 0 10px;
-	font-family: "Arial Narrow", "Helvetica Neue Condensed Bold", Impact, "Arial Black", sans-serif;
-	font-size: 0.68rem;
-	letter-spacing: 0.24em;
-	text-transform: uppercase;
-	color: var(--accent);
-}
-
-.hero__panel p:last-child {
-	margin-bottom: 0;
-}
-
 .obsah {
 	margin-top: 24px;
 	display: grid;
-	gap: var(--section-gap);
+	gap: 20px;
 }
 
 .karta {
 	padding: 22px 0;
 	border-top: 1px solid var(--line);
-	background: transparent;
-	box-shadow: none;
-}
-
-.karta--about {
-	max-width: var(--content-max);
 }
 
 .karta h2 {
 	margin-bottom: 14px;
-	font-family: "Arial Narrow", "Helvetica Neue Condensed Bold", Impact, "Arial Black", sans-serif;
 	font-size: 0.72rem;
 	letter-spacing: 0.24em;
-	text-transform: uppercase;
 	color: var(--accent);
 }
 
-.projekty-grid {
+.about-section {
 	display: grid;
-	grid-template-columns: repeat(2, minmax(0, 1fr));
-	gap: 16px;
-	margin-top: 14px;
-	padding: 0;
+	grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.85fr);
+	gap: 30px;
+	align-items: start;
+}
+
+.study-timeline__list {
+	margin: 0;
+	padding: 2px 0 0 24px;
 	list-style: none;
+	position: relative;
 }
 
-.projekt-karta {
-	padding: 0;
-	border: 1px solid var(--line);
-	background: var(--surface);
+.study-timeline__list::before {
+	content: "";
+	position: absolute;
+	left: 7px;
+	top: 6px;
+	bottom: 10px;
+	width: 2px;
+	background: rgba(242, 234, 223, 0.45);
 }
 
-.projekt-karta article {
-	padding: 20px;
-	height: 100%;
+.study-timeline__list li {
+	position: relative;
+	margin-bottom: 16px;
+	line-height: 1.45;
 }
 
-.project-media {
-	display: grid;
-	grid-template-columns: repeat(2, minmax(0, 1fr));
-	gap: 10px;
-	margin: 16px 0 12px;
-	align-items: stretch;
+.study-timeline__list li:last-child { margin-bottom: 0; }
+
+.study-timeline__list li::before {
+	content: "";
+	position: absolute;
+	left: -20px;
+	top: 0.3rem;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	border: 2px solid rgba(242, 234, 223, 0.9);
+	background: var(--bg);
+	box-shadow: 0 0 0 2px rgba(224, 163, 95, 0.16);
 }
 
-.project-media img {
+.study-timeline__list span {
 	display: block;
-	width: 100%;
-	height: 150px;
-	padding: 8px;
-	object-fit: contain;
-	border: 1px solid var(--line);
-	background: #101114;
-}
-
-.projekt-karta--highlight {
-	background: linear-gradient(180deg, #201815 0%, #171514 100%);
-	border-color: rgba(224, 163, 95, 0.25);
-	box-shadow: var(--shadow);
-}
-
-.project-kicker {
-	margin: 0 0 12px;
-	font-family: "Arial Narrow", "Helvetica Neue Condensed Bold", Impact, "Arial Black", sans-serif;
-	font-size: 0.68rem;
-	letter-spacing: 0.24em;
-	text-transform: uppercase;
+	margin-bottom: 3px;
+	font-size: 0.74rem;
+	letter-spacing: 0.12em;
 	color: var(--accent);
-}
-
-.projekt-karta h3 {
-	margin: 0 0 12px;
-	font-size: 1.55rem;
-	text-transform: uppercase;
-	letter-spacing: 0.06em;
-}
-
-.stack {
-	margin: 12px 0 0;
-	color: var(--muted);
-	font-family: "Arial Narrow", "Helvetica Neue Condensed Bold", Impact, "Arial Black", sans-serif;
-	font-size: 0.72rem;
-	font-weight: 700;
-	letter-spacing: 0.2em;
-	text-transform: uppercase;
 }
 
 .seznam-dovednosti {
@@ -281,35 +210,122 @@ h1.typewriter {
 .seznam-dovednosti li {
 	padding: 10px 14px;
 	border: 1px solid var(--line);
-	background: transparent;
-	font-family: "Arial Narrow", "Helvetica Neue Condensed Bold", Impact, "Arial Black", sans-serif;
 	font-size: 0.74rem;
 	font-weight: 700;
 	letter-spacing: 0.18em;
-	text-transform: uppercase;
 }
 
-.karta--footer {
-	max-width: var(--page-width);
-	margin: 24px auto 0;
-	padding: 24px 0 0;
-	border-top: 1px solid var(--line);
-	background: transparent;
-	box-shadow: none;
+.projekty-grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 16px;
+	margin-top: 14px;
+	padding: 0;
+	list-style: none;
 }
 
-.karta--footer h2 {
-	margin-bottom: 12px;
-	font-family: "Arial Narrow", "Helvetica Neue Condensed Bold", Impact, "Arial Black", sans-serif;
-	font-size: 0.72rem;
+.projekt-karta {
+	border: 1px solid var(--line);
+	background: var(--surface);
+}
+
+.projekt-karta article {
+	padding: 20px;
+	height: 100%;
+}
+
+.project-kicker {
+	margin: 0 0 12px;
+	font-size: 0.68rem;
 	letter-spacing: 0.24em;
-	text-transform: uppercase;
 	color: var(--accent);
 }
 
-.karta--footer p {
-	margin: 8px 0;
-	font-size: 1rem;
+.projekt-karta h3 {
+	margin: 0 0 12px;
+	font-size: 1.55rem;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+}
+
+.projekt-popis {
+	min-height: 4.65em;
+}
+
+.project-media {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 10px;
+	margin: 16px 0 12px;
+}
+
+.project-media img {
+	display: block;
+	width: 100%;
+	height: 190px;
+	padding: 7px;
+	object-fit: cover;
+	border: 1px solid rgba(224, 163, 95, 0.28);
+	border-radius: 4px;
+	background: #111216;
+	box-shadow: 0 10px 22px rgba(0, 0, 0, 0.3);
+}
+
+.stack {
+	margin: 12px 0 0;
+	color: var(--muted);
+	font-size: 0.72rem;
+	font-weight: 700;
+	letter-spacing: 0.2em;
+}
+
+.work-list {
+	margin-top: 8px;
+}
+
+.work-item {
+	padding: 16px 0 22px;
+	border-top: 1px solid var(--line);
+}
+
+.work-item--with-img {
+	display: flex;
+	gap: 34px;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.work-content { flex: 1; }
+.work-image { flex: 0 0 360px; }
+
+.work-image img {
+	display: block;
+	width: 100%;
+	height: 220px;
+	padding: 7px;
+	border: 1px solid rgba(224, 163, 95, 0.35);
+	border-radius: 4px;
+	background: #111216;
+	object-fit: cover;
+	box-shadow: 0 14px 28px rgba(0, 0, 0, 0.35);
+}
+
+.work-item h3 {
+	margin: 0 0 10px;
+	font-size: 1.25rem;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+}
+
+.work-text {
+	margin: 0;
+	max-width: 75ch;
+}
+
+.karta--footer {
+	margin-top: 24px;
+	padding-top: 24px;
+	border-top: 1px solid var(--line);
 }
 
 .karta--footer a {
@@ -332,27 +348,33 @@ h1.typewriter {
 		padding: 16px 0 18px;
 	}
 
-	.hero__content {
-		grid-template-columns: 1fr;
-	}
-
-	.hero__panel {
-		padding: 16px;
-	}
-
 	.karta {
 		padding: 18px 0;
 	}
 
-	.projekty-grid {
+	.about-section, .projekty-grid, .project-media {
 		grid-template-columns: 1fr;
 	}
 
-	.project-media {
-		grid-template-columns: 1fr;
+	.project-media img {
+		height: 210px;
 	}
 
-	.karta--about {
-		max-width: none;
+	.about-section {
+		gap: 20px;
+	}
+
+	.work-item--with-img {
+		flex-direction: column;
+		gap: 15px;
+	}
+
+	.work-image {
+		flex: none;
+		width: 100%;
+	}
+
+	.work-image img {
+		height: 210px;
 	}
 }
