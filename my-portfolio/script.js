@@ -29,6 +29,81 @@ function showWeatherMessage(message) {
 	}
 }
 
+function buildRepoCard(repo) {
+	const card = document.createElement("article");
+	card.className = "github-project-card";
+
+	const title = document.createElement("h3");
+	title.className = "github-project-card__title";
+	title.textContent = repo.name;
+	card.appendChild(title);
+
+	if (repo.language !== null) {
+		const badge = document.createElement("span");
+		badge.className = "github-project-card__badge";
+		badge.textContent = repo.language;
+		badge.style.backgroundColor = "#e0a35f";
+		card.appendChild(badge);
+	}
+
+	const description = document.createElement("p");
+	description.className = "github-project-card__description";
+	description.textContent = repo.description ? repo.description : "Bez popisu.";
+	card.appendChild(description);
+
+	const link = document.createElement("a");
+	link.className = "github-project-card__link";
+	link.href = repo.html_url;
+	link.target = "_blank";
+	link.rel = "noopener noreferrer";
+	link.textContent = "Otevřít na GitHubu";
+	card.appendChild(link);
+
+	return card;
+}
+
+async function loadGitHubProjects(username) {
+	const projectsSection = document.querySelector("#projects");
+
+	if (!projectsSection) {
+		return;
+	}
+
+	projectsSection.replaceChildren();
+
+	const heading = document.createElement("h2");
+	heading.id = "github-projects-heading";
+	heading.textContent = "GitHub projekty";
+	projectsSection.appendChild(heading);
+
+	const status = document.createElement("p");
+	status.className = "github-projects__message";
+	status.textContent = "Načítám repozitáře...";
+	projectsSection.appendChild(status);
+
+	try {
+		const response = await fetch(`https://api.github.com/users/${encodeURIComponent(username)}/repos?sort=updated&per_page=100&direction=desc`);
+
+		if (!response.ok) {
+			throw new Error(`GitHub API chyba: ${response.status}`);
+		}
+
+		const repositories = await response.json();
+		const projectsGrid = document.createElement("div");
+		projectsGrid.className = "github-projects__grid";
+
+		repositories.forEach((repo) => {
+			projectsGrid.appendChild(buildRepoCard(repo));
+		});
+
+		status.remove();
+		projectsSection.appendChild(projectsGrid);
+	} catch (error) {
+		console.error("Nepodařilo se načíst GitHub projekty:", error);
+		status.textContent = "GitHub projekty se nepodařilo načíst.";
+	}
+}
+
 async function loadWeather(city) {
 	const name = city.trim();
 
@@ -80,4 +155,6 @@ document.addEventListener("DOMContentLoaded", () => {
 	if (themeToggleButton) {
 		themeToggleButton.addEventListener("click", () => document.body.classList.toggle("dark-mode"));
 	}
+
+	loadGitHubProjects("adamos962");
 });

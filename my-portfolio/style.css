@@ -252,6 +252,58 @@ h1.typewriter {
 	letter-spacing: 0.02em;
 }
 
+.github-projects {
+	display: grid;
+	gap: 14px;
+}
+
+.github-projects__message {
+	margin: 0;
+	color: var(--muted);
+}
+
+.github-projects__grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 16px;
+}
+
+.github-project-card {
+	padding: 18px;
+	border: 1px solid var(--line);
+	background: var(--surface);
+}
+
+.github-project-card__title {
+	margin: 0 0 8px;
+	font-size: 1rem;
+}
+
+.github-project-card__badge {
+	display: inline-block;
+	margin-bottom: 10px;
+	padding: 4px 8px;
+	border-radius: 999px;
+	color: #111216;
+	font-size: 0.7rem;
+	font-weight: 700;
+}
+
+.github-project-card__description {
+	margin: 0 0 14px;
+	color: var(--ink);
+}
+
+.github-project-card__link {
+	color: var(--accent);
+	text-decoration: none;
+	font-size: 0.9rem;
+}
+
+.github-project-card__link:hover {
+	text-decoration: underline;
+}
+
 .obsah {
 	margin-top: 24px;
 	display: grid;
@@ -477,7 +529,7 @@ h1.typewriter {
 		padding: 18px 0;
 	}
 
-	.about-section, .projekty-grid, .project-media {
+	.about-section, .projekty-grid, .project-media, .github-projects__grid {
 		grid-template-columns: 1fr;
 	}
 
