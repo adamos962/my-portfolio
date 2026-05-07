@@ -8,6 +8,15 @@
 	--page-width: 1120px;
 }
 
+body.dark-mode {
+	--bg: #e5d0ad;
+	--surface: #ffffff;
+	--ink: #1f1f22;
+	--muted: #5f5a54;
+	--line: rgba(31, 31, 34, 0.14);
+	--accent: #8b5e2d;
+}
+
 * {
 	box-sizing: border-box;
 	user-select: none;
@@ -88,6 +97,30 @@ nav a {
 
 nav a[aria-current="page"] {
 	color: var(--accent);
+}
+
+nav button {
+	padding: 0;
+	border: 0;
+	background: transparent;
+	color: var(--muted);
+	font-family: "Arial Narrow", "Helvetica Neue Condensed Bold", Impact, "Arial Black", sans-serif;
+	font-size: 0.72rem;
+	font-weight: 700;
+	letter-spacing: 0.22em;
+	text-transform: uppercase;
+	cursor: pointer;
+	transition: color 0.2s ease;
+}
+
+nav button:hover {
+	color: var(--accent);
+	transform: none;
+}
+
+nav button:focus-visible {
+	outline: 2px solid var(--accent);
+	outline-offset: 4px;
 }
 
 h1, h2, h3 {
