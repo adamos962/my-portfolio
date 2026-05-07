@@ -18,7 +18,7 @@
                 <a href="index.html" aria-current="page">Domů</a>
                 <a href="projekty.html">Projekty a Práce</a>
                 <a href="#kontakt">Kontakt</a>
-                <button type="button">Tmavý režim</button>
+                <button type="button" data-theme-toggle>Tmavý režim</button>
             </nav>
         </div>
 
@@ -67,6 +67,44 @@
                 <li>Cisco Packet Tracer</li>
                 <li>Blender</li>
             </ul>
+        </section>
+
+        <section id="weather" class="karta weather-widget">
+            <div class="weather-widget__intro">
+                <h2>Počasí</h2>
+                <p>Zadej město a načti aktuální data z OpenWeather.</p>
+            </div>
+
+            <div class="weather-widget__controls">
+                <input id="weather-city-input" class="weather-widget__input" type="text" placeholder="Napiš město" aria-label="Název města">
+                <button type="button" data-weather-search class="weather-widget__button">Search</button>
+            </div>
+
+            <div class="weather-card" aria-live="polite">
+                <p id="weather-message" class="weather-card__message">Zadej město a klikni na Search.</p>
+                <dl class="weather-card__details">
+                    <div class="weather-card__item">
+                        <dt>Město</dt>
+                        <dd id="weather-city-name">—</dd>
+                    </div>
+                    <div class="weather-card__item">
+                        <dt>Teplota</dt>
+                        <dd id="weather-temperature">—</dd>
+                    </div>
+                    <div class="weather-card__item">
+                        <dt>Popis</dt>
+                        <dd id="weather-description">—</dd>
+                    </div>
+                    <div class="weather-card__item">
+                        <dt>Vlhkost</dt>
+                        <dd id="weather-humidity">—</dd>
+                    </div>
+                    <div class="weather-card__item">
+                        <dt>Vítr</dt>
+                        <dd id="weather-wind">—</dd>
+                    </div>
+                </dl>
+            </div>
         </section>
 
         
