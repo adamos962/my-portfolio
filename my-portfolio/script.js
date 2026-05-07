@@ -1,3 +1,16 @@
+// Suppress browser extension message channel errors (not our code)
+window.addEventListener("error", (event) => {
+	if (event.message?.includes("message channel closed")) {
+		event.preventDefault();
+	}
+}, true);
+
+window.addEventListener("unhandledrejection", (event) => {
+	if (event.reason?.message?.includes("message channel closed")) {
+		event.preventDefault();
+	}
+});
+
 function greetVisitor() {
 	const heading = document.querySelector("h1.typewriter");
 
