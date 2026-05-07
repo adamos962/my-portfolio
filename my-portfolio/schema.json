@@ -1,0 +1,53 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ProfilePage",
+      "name": "Adam Novák | Portfolio",
+      "url": "https://adamnovak-portfolio.netlify.app/",
+      "description": "Portfolio Adama Nováka – webový vývojář, programátor, 3D designer.",
+      "inLanguage": "cs-CZ",
+      "datePublished": "2024-01-01",
+      "isAccessibleForFree": true,
+      "mainEntity": {
+        "@type": "Person",
+        "name": "Adam Novák",
+        "url": "https://adamnovak-portfolio.netlify.app/",
+        "email": "novaka.07@spst.eu",
+        "jobTitle": "Student, Webový Vývojář & Programátor",
+        "affiliation": {
+          "@type": "EducationalOrganization",
+          "name": "SPŠ Třebíč"
+        },
+        "knowsLanguage": ["cs", "en"],
+        "sameAs": [
+          "https://github.com/adamos962"
+        ],
+        "skills": "HTML, CSS, JavaScript, Python, C++, C#, MySQL, Blender, 3D Modeling"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Domů",
+          "item": "https://adamnovak-portfolio.netlify.app/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "O Mně",
+          "item": "https://adamnovak-portfolio.netlify.app/#o-mne"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Dovednosti",
+          "item": "https://adamnovak-portfolio.netlify.app/#dovednosti"
+        }
+      ]
+    }
+  ]
+}

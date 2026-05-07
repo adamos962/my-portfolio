@@ -107,9 +107,23 @@ async function loadGitHubProjects(username) {
 async function loadWeather(city) {
 	const name = city.trim();
 
+	// Validate input: empty, too long, invalid chars
 	if (!name) {
 		clearWeatherCard();
 		showWeatherMessage("Zadej název města.");
+		return;
+	}
+
+	if (name.length > 100) {
+		clearWeatherCard();
+		showWeatherMessage("Název města je příliš dlouhý.");
+		return;
+	}
+
+	// Only allow letters, numbers, spaces, hyphens, apostrophes, and diacritics
+	if (!/^[a-zA-Z0-9\s\-'áíéóúůčšžĎŇŔŠŽ]+$/u.test(name)) {
+		clearWeatherCard();
+		showWeatherMessage("Název obsahuje nepovolené znaky.");
 		return;
 	}
 
@@ -134,7 +148,7 @@ async function loadWeather(city) {
 
 		showWeatherMessage(`Aktualizováno pro ${cityName}.`);
 	} catch (error) {
-		console.error("Něco se nepovedlo:", error);
+		console.error("Chyba počasí:", error);
 		clearWeatherCard();
 		showWeatherMessage(error.message || "Počasí se nepodařilo načíst. Zkus to znovu.");
 	}
@@ -152,8 +166,37 @@ document.addEventListener("DOMContentLoaded", () => {
 		weatherSearchButton.addEventListener("click", () => loadWeather(weatherCityInput.value));
 	}
 
+	function applyTheme(theme) {
+		if (theme === "dark") {
+			document.body.classList.add("dark-mode");
+		} else {
+			document.body.classList.remove("dark-mode");
+		}
+	}
+
+	function storedTheme() {
+		try {
+			return localStorage.getItem("theme");
+		} catch (e) {
+			return null;
+		}
+	}
+
+	function toggleTheme() {
+		const isDark = document.body.classList.toggle("dark-mode");
+		try {
+			localStorage.setItem("theme", isDark ? "dark" : "light");
+		} catch (e) {
+			// ignore storage errors (e.g. privacy mode)
+		}
+	}
+
+	// initialize theme from stored value so it persists across pages
+	const init = storedTheme();
+	if (init) applyTheme(init);
+
 	if (themeToggleButton) {
-		themeToggleButton.addEventListener("click", () => document.body.classList.toggle("dark-mode"));
+		themeToggleButton.addEventListener("click", toggleTheme);
 	}
 
 	loadGitHubProjects("adamos962");

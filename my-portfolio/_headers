@@ -1,0 +1,19 @@
+/* Netlify security headers - prevents XSS, injection, and other attacks */
+
+/
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://api.github.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://api.github.com https://api.openweathermap.org; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests;
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  X-XSS-Protection: 0
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=()
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: same-origin
+
+/* API function endpoints - allow API calls only */
+/.netlify/functions/*
+  Access-Control-Allow-Origin: https://adamnovak-portfolio.netlify.app
+  Access-Control-Allow-Methods: GET, POST, OPTIONS
+  Access-Control-Allow-Headers: Content-Type, Accept
+  Access-Control-Max-Age: 86400
