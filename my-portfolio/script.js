@@ -1,12 +1,11 @@
 function greetVisitor() {
-	const heading = document.querySelector("h1");
+	const heading = document.querySelector("h1.typewriter");
 
 	if (heading) {
 		heading.textContent += " Vítejte!";
 	}
 }
 
-const weatherApiKey = process.env.WEATHER_API_KEY;
 const weatherEls = {
 	message: document.querySelector("#weather-message"),
 	cityName: document.querySelector("#weather-city-name"),
@@ -40,7 +39,7 @@ async function loadWeather(city) {
 	}
 
 	try {
-		const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(name)}&appid=${weatherApiKey}&units=metric&lang=cs`);
+		const response = await fetch(`/.netlify/functions/weather?city=${encodeURIComponent(name)}`);
 
 		if (!response.ok) {
 			if (response.status === 404) throw new Error("Město nebylo nalezeno.");
