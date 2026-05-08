@@ -1,39 +1,3 @@
-/*
-Cross-site Scripting (XSS) is a security vulnerability where an attacker injects malicious scripts into 
-trusted websites to execute them in a victim browser. 
-This allows the attacker to attack through the controls
- steal sensitive data like cookies or hijack user sessions.
-*/
-
-
-/*
-Why .textContent and not .innerHTML?
-Using .textContent instead of .innerHTML is crucial for security because it prevents Cross-site Scripting (XSS) attacks.
-
-innerHTML = <b>bold</b> shows bold text
-textContent = <b>bold</b> shows the literal whole string "<b>bold</b>".
-*/
-// Potlačení chyb od rozšíření prohlížeče
-window.addEventListener("error", (event) => {
-	if (event.message?.includes("message channel closed") || event.message?.includes("listener indicated an asynchronous response")) {
-		event.preventDefault();
-	}
-}, true);
-
-window.addEventListener("unhandledrejection", (event) => {
-	if (event.reason?.message?.includes("message channel closed") || event.reason?.message?.includes("listener indicated an asynchronous response")) {
-		event.preventDefault();
-	}
-});
-
-// Listener pro rozšíření - vždy odpoví, aby se neutvořily timeout chyby
-if (typeof chrome !== "undefined" && chrome.runtime) {
-	chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-		sendResponse({});
-		return false;
-	});
-}
-
 function greetVisitor() {
 	const heading = document.querySelector("h1.typewriter");
 
@@ -201,28 +165,26 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 
 	function applyTheme(theme) {
-		if (theme === "dark") {
-			document.body.classList.add("dark-mode");
-		} else {
-			document.body.classList.remove("dark-mode");
-		}
+		document.body.classList.toggle("dark-mode", theme === "dark");
 	}
 
 	function storedTheme() {
 		try {
 			return localStorage.getItem("theme");
-		} catch (e) {
+		} catch (error) {
 			return null;
 		}
 	}
 
 	function toggleTheme() {
 		const isDark = document.body.classList.toggle("dark-mode");
+
 		try {
 			localStorage.setItem("theme", isDark ? "dark" : "light");
-		} catch (e) {
+		} catch (error) {
 		}
 	}
+
 	const init = storedTheme();
 	if (init) applyTheme(init);
 
