@@ -1,15 +1,38 @@
-// Suppress browser extension message channel errors (not our code)
+/*
+Cross-site Scripting (XSS) is a security vulnerability where an attacker injects malicious scripts into 
+trusted websites to execute them in a victim browser. 
+This allows the attacker to attack through the controls
+ steal sensitive data like cookies or hijack user sessions.
+*/
+
+
+/*
+Why .textContent and not .innerHTML?
+Using .textContent instead of .innerHTML is crucial for security because it prevents Cross-site Scripting (XSS) attacks.
+
+innerHTML = <b>bold</b> shows bold text
+textContent = <b>bold</b> shows the literal whole string "<b>bold</b>".
+*/
+// Potlačení chyb od rozšíření prohlížeče
 window.addEventListener("error", (event) => {
-	if (event.message?.includes("message channel closed")) {
+	if (event.message?.includes("message channel closed") || event.message?.includes("listener indicated an asynchronous response")) {
 		event.preventDefault();
 	}
 }, true);
 
 window.addEventListener("unhandledrejection", (event) => {
-	if (event.reason?.message?.includes("message channel closed")) {
+	if (event.reason?.message?.includes("message channel closed") || event.reason?.message?.includes("listener indicated an asynchronous response")) {
 		event.preventDefault();
 	}
 });
+
+// Listener pro rozšíření - vždy odpoví, aby se neutvořily timeout chyby
+if (typeof chrome !== "undefined" && chrome.runtime) {
+	chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+		sendResponse({});
+		return false;
+	});
+}
 
 function greetVisitor() {
 	const heading = document.querySelector("h1.typewriter");
@@ -120,7 +143,6 @@ async function loadGitHubProjects(username) {
 async function loadWeather(city) {
 	const name = city.trim();
 
-	// Validate input: empty, too long, invalid chars
 	if (!name) {
 		clearWeatherCard();
 		showWeatherMessage("Zadej název města.");
@@ -133,7 +155,6 @@ async function loadWeather(city) {
 		return;
 	}
 
-	// Only allow letters, numbers, spaces, hyphens, apostrophes, and diacritics
 	if (!/^[a-zA-Z0-9\s\-'áíéóúůčšžĎŇŔŠŽ]+$/u.test(name)) {
 		clearWeatherCard();
 		showWeatherMessage("Název obsahuje nepovolené znaky.");
@@ -200,11 +221,8 @@ document.addEventListener("DOMContentLoaded", () => {
 		try {
 			localStorage.setItem("theme", isDark ? "dark" : "light");
 		} catch (e) {
-			// ignore storage errors (e.g. privacy mode)
 		}
 	}
-
-	// initialize theme from stored value so it persists across pages
 	const init = storedTheme();
 	if (init) applyTheme(init);
 
