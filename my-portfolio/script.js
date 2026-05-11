@@ -155,7 +155,9 @@ async function loadWeather(city) {
 async function sendChatMessage(msg) {
 	const el = document.querySelector("#chat-response");
 	const input = document.querySelector("#chat-input");
-	if (!msg.trim()) return;
+	const send = document.querySelector("#chat-send");
+	if (!msg.trim() || send.disabled) return;
+	send.disabled = true;
 	el.textContent = "Načítám...";
 	el.className = "chat-response loading";
 	try {
@@ -164,8 +166,11 @@ async function sendChatMessage(msg) {
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ message: msg.trim() })
 		});
-		if (!res.ok) throw new Error(`Chyba: ${res.status}`);
 		const data = await res.json();
+		if (!res.ok) {
+			if (res.status === 429) throw new Error("Příliš mnoho požadavků. Počkej chvíli.");
+			throw new Error(data.error || `Chyba ${res.status}`);
+		}
 		el.textContent = data.reply || "Chyba.";
 		el.className = "chat-response";
 		input.value = "";
@@ -173,6 +178,8 @@ async function sendChatMessage(msg) {
 	} catch (e) {
 		el.textContent = e.message;
 		el.className = "chat-response error";
+	} finally {
+		send.disabled = false;
 	}
 }
 
@@ -191,28 +198,35 @@ document.addEventListener("DOMContentLoaded", () => {
 	const bubble = document.querySelector("#chat-bubble");
 	const modal = document.querySelector("#chat-modal");
 	const closeBtn = document.querySelector("#chat-close");
+	const send = document.querySelector("#chat-send");
+	const inp = document.querySelector("#chat-input");
 	
-	if (bubble && modal && closeBtn) {
-		bubble.addEventListener("click", () => {
-			modal.hidden = false;
-			bubble.setAttribute("aria-expanded", "true");
-			document.querySelector("#chat-input")?.focus();
-		});
-		closeBtn.addEventListener("click", () => {
+	// Otevřít
+	bubble?.addEventListener("click", () => {
+		modal.hidden = false;
+		bubble.setAttribute("aria-expanded", "true");
+		inp?.focus();
+	});
+	
+	// Zavřít X
+	closeBtn?.addEventListener("click", () => {
+		modal.hidden = true;
+		bubble?.setAttribute("aria-expanded", "false");
+	});
+	
+	// Zavřít ESC
+	document.addEventListener("keydown", (e) => {
+		if (e.key === "Escape") {
 			modal.hidden = true;
-			bubble.setAttribute("aria-expanded", "false");
-		});
-		document.addEventListener("keydown", (e) => {
-			if (e.key === "Escape" && !modal.hidden) {
-				modal.hidden = true;
-				bubble.setAttribute("aria-expanded", "false");
-			}
-		});
-		const send = document.querySelector("#chat-send");
-		const inp = document.querySelector("#chat-input");
-		send?.addEventListener("click", () => sendChatMessage(inp.value));
-		inp?.addEventListener("keypress", (e) => e.key === "Enter" && sendChatMessage(inp.value));
-	}
+			bubble?.setAttribute("aria-expanded", "false");
+		}
+	});
+	
+	// Odeslat
+	send?.addEventListener("click", () => sendChatMessage(inp?.value));
+	inp?.addEventListener("keypress", (e) => {
+		if (e.key === "Enter") sendChatMessage(inp.value);
+	});
 
 	function applyTheme(theme) {
 		document.body.classList.toggle("dark-mode", theme === "dark");
