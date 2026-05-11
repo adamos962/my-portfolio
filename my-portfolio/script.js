@@ -15,6 +15,9 @@ const weatherEls = {
 	wind: document.querySelector("#weather-wind"),
 };
 
+let chatCooldownUntil = 0;
+let chatCooldownTimer = null;
+
 function clearWeatherCard() {
 	if (weatherEls.cityName) weatherEls.cityName.textContent = "—";
 	if (weatherEls.temperature) weatherEls.temperature.textContent = "—";
@@ -27,6 +30,40 @@ function showWeatherMessage(message) {
 	if (weatherEls.message) {
 		weatherEls.message.textContent = message;
 	}
+}
+
+function extractRetrySeconds(text) {
+	if (!text) return null;
+	const match = String(text).match(/retry in\s*(\d+\.?\d*)s/i) || String(text).match(/retryDelay\"?\s*:\s*\"?(\d+)s/i);
+	if (!match) return null;
+	return Math.ceil(parseFloat(match[1]));
+}
+
+function disableSendFor(seconds) {
+	const sendBtn = document.querySelector("#chat-send");
+	const input = document.querySelector("#chat-input");
+	if (!sendBtn) return;
+
+	let remaining = seconds;
+	chatCooldownUntil = Date.now() + seconds * 1000;
+	if (chatCooldownTimer) clearInterval(chatCooldownTimer);
+
+	sendBtn.disabled = true;
+	const originalText = sendBtn.textContent;
+	chatCooldownTimer = setInterval(() => {
+		if (remaining <= 0) {
+			clearInterval(chatCooldownTimer);
+			chatCooldownTimer = null;
+			chatCooldownUntil = 0;
+			sendBtn.disabled = false;
+			sendBtn.textContent = originalText;
+			if (input) input.focus();
+			return;
+		}
+
+		sendBtn.textContent = `${originalText} (${remaining}s)`;
+		remaining -= 1;
+	}, 1000);
 }
 
 function buildRepoCard(repo) {
@@ -156,6 +193,7 @@ async function sendChatMessage(msg) {
 	const el = document.querySelector("#chat-response");
 	const input = document.querySelector("#chat-input");
 	const send = document.querySelector("#chat-send");
+	if (Date.now() < chatCooldownUntil) return;
 	if (!msg.trim() || send.disabled) return;
 	send.disabled = true;
 	el.textContent = "Načítám...";
@@ -169,14 +207,13 @@ async function sendChatMessage(msg) {
 		const data = await res.json();
 		if (!res.ok) {
 			if (res.status === 429) {
-				const retry = data.retryAfter || data.details || null;
+				const retry = data.retryAfter || extractRetrySeconds(data.details) || extractRetrySeconds(data.error) || null;
 				let messageText = "Příliš mnoho požadavků. Počkej chvíli.";
 				if (retry && !isNaN(parseInt(retry))) {
 					messageText = `Příliš mnoho požadavků. Počkej ${parseInt(retry)} s.`;
 				}
 				el.textContent = messageText;
 				el.className = "chat-response error";
-				// if numeric retry, disable send and start countdown
 				if (retry && !isNaN(parseInt(retry))) {
 					const seconds = Math.min(600, parseInt(retry));
 					disableSendFor(seconds);
@@ -193,7 +230,9 @@ async function sendChatMessage(msg) {
 		el.textContent = e.message;
 		el.className = "chat-response error";
 	} finally {
-		send.disabled = false;
+		if (Date.now() >= chatCooldownUntil) {
+			send.disabled = false;
+		}
 	}
 }
 
@@ -243,27 +282,6 @@ document.addEventListener("DOMContentLoaded", () => {
 	if (inp) inp.addEventListener("keypress", (e) => {
 		if (e.key === "Enter") sendChatMessage(inp.value);
 	});
-
-// helper to disable send button with visible countdown
-function disableSendFor(seconds) {
-	const sendBtn = document.querySelector("#chat-send");
- 	const input = document.querySelector("#chat-input");
- 	if (!sendBtn) return;
- 	let remaining = seconds;
- 	sendBtn.disabled = true;
- 	const originalText = sendBtn.textContent;
- 	const iv = setInterval(() => {
- 		if (remaining <= 0) {
- 			clearInterval(iv);
- 			sendBtn.disabled = false;
- 			sendBtn.textContent = originalText;
- 			if (input) input.focus();
- 			return;
- 		}
- 		sendBtn.textContent = `${originalText} (${remaining}s)`;
- 		remaining -= 1;
- 	}, 1000);
-}
 
 	function applyTheme(theme) {
 		document.body.classList.toggle("dark-mode", theme === "dark");

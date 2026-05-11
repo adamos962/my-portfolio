@@ -29,8 +29,9 @@ exports.handler = async function (event, context) {
 			};
 		}
 
+		const GEMINI_MODEL = 'gemini-2.0-flash-lite';
 		const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta' +
-			'/models/gemini-2.0-flash:generateContent' +
+			'/models/' + GEMINI_MODEL + ':generateContent' +
 			'?key=' + process.env.GEMINI_API_KEY;
 
 		const response = await fetch(GEMINI_URL, {
