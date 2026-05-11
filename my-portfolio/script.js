@@ -46,7 +46,6 @@ function disableSendFor(seconds) {
 
 	let remaining = seconds;
 	chatCooldownUntil = Date.now() + seconds * 1000;
-	try { localStorage.setItem('chatCooldownUntil', String(chatCooldownUntil)); } catch (e) {}
 	if (chatCooldownTimer) clearInterval(chatCooldownTimer);
 
 	sendBtn.disabled = true;
@@ -56,7 +55,6 @@ function disableSendFor(seconds) {
 			clearInterval(chatCooldownTimer);
 			chatCooldownTimer = null;
 			chatCooldownUntil = 0;
-			try { localStorage.removeItem('chatCooldownUntil'); } catch (e) {}
 			sendBtn.disabled = false;
 			sendBtn.textContent = originalText;
 			if (input) input.focus();
@@ -151,16 +149,17 @@ async function loadWeather(city) {
 		showWeatherMessage("Zadej název města.");
 		return;
 	}
-				const retry = parseInt(data.retryAfter) || extractRetrySeconds(data.details) || extractRetrySeconds(data.error) || null;
-				// enforce minimum cooldown to stop repeated cycles (5 minutes)
-				let seconds = 300; // default 5 minutes
-				if (retry && !isNaN(retry)) {
-					seconds = Math.min(600, Math.max(300, retry));
-				}
-				const mins = Math.ceil(seconds / 60);
-				el.textContent = `Příliš mnoho požadavků. Kvóta je vyčerpaná — blokováno ${mins} min.`;
-				el.className = "chat-response error";
-				disableSendFor(seconds);
+
+	if (name.length > 100) {
+		clearWeatherCard();
+		showWeatherMessage("Název města je příliš dlouhý.");
+		return;
+	}
+
+	if (!/^[a-zA-Z0-9\s\-'áíéóúůčšžĎŇŔŠŽ]+$/u.test(name)) {
+		clearWeatherCard();
+		showWeatherMessage("Název obsahuje nepovolené znaky.");
+		return;
 	}
 
 	try {
@@ -250,12 +249,6 @@ async function sendChatMessage(msg) {
 
 document.addEventListener("DOMContentLoaded", () => {
 	greetVisitor();
-
-	// if a cooldown was stored from previous session, start it in the UI
-	if (chatCooldownUntil && Date.now() < chatCooldownUntil) {
-		const remaining = Math.ceil((chatCooldownUntil - Date.now()) / 1000);
-		disableSendFor(remaining);
-	}
 
 	const weatherSearchButton = document.querySelector("[data-weather-search]");
 	const weatherCityInput = document.querySelector("#weather-city-input");
