@@ -204,7 +204,15 @@ async function sendChatMessage(msg) {
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ message: msg.trim() })
 		});
-		const data = await res.json();
+		const raw = await res.text();
+		let data = {};
+		if (raw) {
+			try {
+				data = JSON.parse(raw);
+			} catch (parseError) {
+				data = { error: raw };
+			}
+		}
 		if (!res.ok) {
 			if (res.status === 429) {
 				const retry = data.retryAfter || extractRetrySeconds(data.details) || extractRetrySeconds(data.error) || null;

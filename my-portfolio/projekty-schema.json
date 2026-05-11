@@ -4,18 +4,18 @@
     {
       "@type": "CollectionPage",
       "name": "Projekty & Práce | Adam Novák",
-      "url": "https://eclectic-elf-6fe2ce.netlify.app/projekty.html",
+      "url": "https://adameknovacek.netlify.app/projekty.html",
       "description": "Full-stack projekty, 3D design, programování a síťová infrastruktura.",
       "inLanguage": "cs-CZ",
       "isPartOf": {
         "@type": "WebSite",
-        "url": "https://eclectic-elf-6fe2ce.netlify.app/",
+        "url": "https://adameknovacek.netlify.app/",
         "name": "Adam Novák | Portfolio"
       },
       "author": {
         "@type": "Person",
         "name": "Adam Novák",
-        "url": "https://eclectic-elf-6fe2ce.netlify.app/",
+        "url": "https://adameknovacek.netlify.app/",
         "sameAs": ["https://github.com/adamos962"]
       }
     },
@@ -26,13 +26,13 @@
           "@type": "ListItem",
           "position": 1,
           "name": "Domů",
-          "item": "https://eclectic-elf-6fe2ce.netlify.app/"
+          "item": "https://adameknovacek.netlify.app/"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Projekty",
-          "item": "https://eclectic-elf-6fe2ce.netlify.app/projekty.html"
+          "item": "https://adameknovacek.netlify.app/projekty.html"
         }
       ]
     }

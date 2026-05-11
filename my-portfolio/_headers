@@ -13,7 +13,7 @@
 
 /* API function endpoints - allow API calls only */
 /.netlify/functions/*
-  Access-Control-Allow-Origin: https://eclectic-elf-6fe2ce.netlify.app
+  Access-Control-Allow-Origin: https://adameknovacek.netlify.app
   Access-Control-Allow-Methods: GET, POST, OPTIONS
   Access-Control-Allow-Headers: Content-Type, Accept
   Access-Control-Max-Age: 86400

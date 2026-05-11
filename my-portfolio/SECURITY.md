@@ -58,7 +58,7 @@ Cross-Origin-Resource-Policy: same-origin
 
 Serverless funkce vrací:
 ```
-Access-Control-Allow-Origin: https://eclectic-elf-6fe2ce.netlify.app
+Access-Control-Allow-Origin: https://adameknovacek.netlify.app
 Access-Control-Allow-Methods: GET, OPTIONS
 Access-Control-Max-Age: 86400
 ```
@@ -74,7 +74,7 @@ Access-Control-Max-Age: 86400
 
 1. **Nastav WEATHER_API_KEY** v Netlify Site Settings → Environment variables
 2. **Deploy**: `git push origin main`
-3. **Ověř headers**: `curl -I https://eclectic-elf-6fe2ce.netlify.app`
+3. **Ověř headers**: `curl -I https://adameknovacek.netlify.app`
 4. **Kontrola CSP**: Otevři DevTools → Network → odpověď na stránku, podívej se na `Content-Security-Policy` header
 
 ## Budoucí Vylepšení
