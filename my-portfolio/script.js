@@ -168,7 +168,21 @@ async function sendChatMessage(msg) {
 		});
 		const data = await res.json();
 		if (!res.ok) {
-			if (res.status === 429) throw new Error("Příliš mnoho požadavků. Počkej chvíli.");
+			if (res.status === 429) {
+				const retry = data.retryAfter || data.details || null;
+				let messageText = "Příliš mnoho požadavků. Počkej chvíli.";
+				if (retry && !isNaN(parseInt(retry))) {
+					messageText = `Příliš mnoho požadavků. Počkej ${parseInt(retry)} s.`;
+				}
+				el.textContent = messageText;
+				el.className = "chat-response error";
+				// if numeric retry, disable send and start countdown
+				if (retry && !isNaN(parseInt(retry))) {
+					const seconds = Math.min(600, parseInt(retry));
+					disableSendFor(seconds);
+				}
+				return;
+			}
 			throw new Error(data.error || `Chyba ${res.status}`);
 		}
 		el.textContent = data.reply || "Chyba.";
@@ -229,6 +243,27 @@ document.addEventListener("DOMContentLoaded", () => {
 	if (inp) inp.addEventListener("keypress", (e) => {
 		if (e.key === "Enter") sendChatMessage(inp.value);
 	});
+
+// helper to disable send button with visible countdown
+function disableSendFor(seconds) {
+	const sendBtn = document.querySelector("#chat-send");
+ 	const input = document.querySelector("#chat-input");
+ 	if (!sendBtn) return;
+ 	let remaining = seconds;
+ 	sendBtn.disabled = true;
+ 	const originalText = sendBtn.textContent;
+ 	const iv = setInterval(() => {
+ 		if (remaining <= 0) {
+ 			clearInterval(iv);
+ 			sendBtn.disabled = false;
+ 			sendBtn.textContent = originalText;
+ 			if (input) input.focus();
+ 			return;
+ 		}
+ 		sendBtn.textContent = `${originalText} (${remaining}s)`;
+ 		remaining -= 1;
+ 	}, 1000);
+}
 
 	function applyTheme(theme) {
 		document.body.classList.toggle("dark-mode", theme === "dark");

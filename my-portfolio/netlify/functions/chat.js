@@ -43,6 +43,15 @@ exports.handler = async function (event, context) {
 
 		if (!response.ok) {
 			const text = await response.text();
+			const retryAfter = response.headers ? response.headers.get('Retry-After') : null;
+			if (response.status === 429) {
+				return {
+					statusCode: 429,
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({ error: 'Rate limit', details: text, retryAfter })
+				};
+			}
+
 			return {
 				statusCode: response.status || 500,
 				headers: { 'Content-Type': 'application/json' },
