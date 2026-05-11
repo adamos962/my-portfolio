@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://adamnovak-portfolio.netlify.app/sitemap.xml
+Sitemap: https://eclectic-elf-6fe2ce.netlify.app/sitemap.xml

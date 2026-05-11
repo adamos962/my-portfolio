@@ -81,7 +81,7 @@ exports.handler = async (event) => {
 function corsHeaders() {
 	return {
 		"Content-Type": "application/json",
-		"Access-Control-Allow-Origin": "https://adamnovak-portfolio.netlify.app",
+		"Access-Control-Allow-Origin": "https://eclectic-elf-6fe2ce.netlify.app",
 		"Access-Control-Allow-Methods": "GET, OPTIONS",
 		"Access-Control-Allow-Headers": "Content-Type",
 		"Access-Control-Max-Age": "86400",
