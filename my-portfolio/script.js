@@ -214,6 +214,9 @@ async function sendChatMessage(msg) {
 			}
 		}
 		if (!res.ok) {
+			if (res.status === 404) {
+				throw new Error("Chat function nebyla na této doméně nalezena. Je potřeba znovu deploynout Netlify site s funkcí chat.");
+			}
 			if (res.status === 429) {
 				const retry = data.retryAfter || extractRetrySeconds(data.details) || extractRetrySeconds(data.error) || null;
 				let messageText = "Příliš mnoho požadavků. Počkej chvíli.";
