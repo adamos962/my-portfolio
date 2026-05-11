@@ -1,6 +1,7 @@
 exports.handler = async (event) => {
 	const city = event.queryStringParameters?.city;
-	const clientIp = event.headers['client-ip'] || event.headers['x-forwarded-for'] || 'unknown';
+	const headers = event.headers || {};
+	const clientIp = headers['client-ip'] || headers['x-forwarded-for'] || 'unknown';
 
 	// Basic input validation
 	if (!city || city.trim() === "") {
@@ -45,21 +46,33 @@ exports.handler = async (event) => {
 		);
 
 		if (!response.ok) {
+			const text = await response.text();
 			if (response.status === 404) {
 				return {
 					statusCode: 404,
-					body: JSON.stringify({ error: "Město nebylo nalezeno" }),
+					body: JSON.stringify({ error: "Město nebylo nalezeno", details: text }),
 					headers: corsHeaders(),
 				};
 			}
 			if (response.status === 401) {
 				return {
 					statusCode: 401,
-					body: JSON.stringify({ error: "API klíč je neplatný" }),
+					body: JSON.stringify({ error: "API klíč je neplatný", details: text }),
 					headers: corsHeaders(),
 				};
 			}
-			throw new Error(`OpenWeather API error: ${response.status}`);
+			if (response.status === 429) {
+				return {
+					statusCode: 429,
+					body: JSON.stringify({ error: "Příliš mnoho požadavků", details: text }),
+					headers: corsHeaders(),
+				};
+			}
+			return {
+				statusCode: 500,
+				body: JSON.stringify({ error: "OpenWeather API error", status: response.status, details: text }),
+				headers: corsHeaders(),
+			};
 		}
 
 		const data = await response.json();
