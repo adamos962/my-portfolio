@@ -201,30 +201,32 @@ document.addEventListener("DOMContentLoaded", () => {
 	const send = document.querySelector("#chat-send");
 	const inp = document.querySelector("#chat-input");
 	
-	// Otevřít
-	bubble?.addEventListener("click", () => {
-		modal.hidden = false;
-		bubble.setAttribute("aria-expanded", "true");
-		inp?.focus();
-	});
+	if (bubble) {
+		bubble.addEventListener("click", (e) => {
+			e.stopPropagation();
+			modal.removeAttribute("hidden");
+			bubble.setAttribute("aria-expanded", "true");
+			inp?.focus();
+		});
+	}
 	
-	// Zavřít X
-	closeBtn?.addEventListener("click", () => {
-		modal.hidden = true;
-		bubble?.setAttribute("aria-expanded", "false");
-	});
+	if (closeBtn) {
+		closeBtn.addEventListener("click", (e) => {
+			e.stopPropagation();
+			modal.setAttribute("hidden", "");
+			bubble.setAttribute("aria-expanded", "false");
+		});
+	}
 	
-	// Zavřít ESC
 	document.addEventListener("keydown", (e) => {
 		if (e.key === "Escape") {
-			modal.hidden = true;
+			modal.setAttribute("hidden", "");
 			bubble?.setAttribute("aria-expanded", "false");
 		}
 	});
 	
-	// Odeslat
-	send?.addEventListener("click", () => sendChatMessage(inp?.value));
-	inp?.addEventListener("keypress", (e) => {
+	if (send) send.addEventListener("click", () => sendChatMessage(inp?.value));
+	if (inp) inp.addEventListener("keypress", (e) => {
 		if (e.key === "Enter") sendChatMessage(inp.value);
 	});
 

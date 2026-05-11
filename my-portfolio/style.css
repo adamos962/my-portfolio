@@ -554,6 +554,7 @@ h1.typewriter {
 	flex-direction: column;
 	animation: slideUp 0.3s ease-out;
 }
+.chat-modal[hidden] { display: none; }
 @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
 .chat-modal__header {
