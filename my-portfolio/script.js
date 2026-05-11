@@ -152,6 +152,30 @@ async function loadWeather(city) {
 	}
 }
 
+async function sendChatMessage(msg) {
+	const el = document.querySelector("#chat-response");
+	const input = document.querySelector("#chat-input");
+	if (!msg.trim()) return;
+	el.textContent = "Načítám...";
+	el.className = "chat-response loading";
+	try {
+		const res = await fetch("/.netlify/functions/chat", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ message: msg.trim() })
+		});
+		if (!res.ok) throw new Error(`Chyba: ${res.status}`);
+		const data = await res.json();
+		el.textContent = data.reply || "Chyba.";
+		el.className = "chat-response";
+		input.value = "";
+		input.focus();
+	} catch (e) {
+		el.textContent = e.message;
+		el.className = "chat-response error";
+	}
+}
+
 document.addEventListener("DOMContentLoaded", () => {
 	greetVisitor();
 
@@ -162,6 +186,32 @@ document.addEventListener("DOMContentLoaded", () => {
 	if (weatherSearchButton && weatherCityInput) {
 		clearWeatherCard();
 		weatherSearchButton.addEventListener("click", () => loadWeather(weatherCityInput.value));
+	}
+
+	const bubble = document.querySelector("#chat-bubble");
+	const modal = document.querySelector("#chat-modal");
+	const closeBtn = document.querySelector("#chat-close");
+	
+	if (bubble && modal && closeBtn) {
+		bubble.addEventListener("click", () => {
+			modal.hidden = false;
+			bubble.setAttribute("aria-expanded", "true");
+			document.querySelector("#chat-input")?.focus();
+		});
+		closeBtn.addEventListener("click", () => {
+			modal.hidden = true;
+			bubble.setAttribute("aria-expanded", "false");
+		});
+		document.addEventListener("keydown", (e) => {
+			if (e.key === "Escape" && !modal.hidden) {
+				modal.hidden = true;
+				bubble.setAttribute("aria-expanded", "false");
+			}
+		});
+		const send = document.querySelector("#chat-send");
+		const inp = document.querySelector("#chat-input");
+		send?.addEventListener("click", () => sendChatMessage(inp.value));
+		inp?.addEventListener("keypress", (e) => e.key === "Enter" && sendChatMessage(inp.value));
 	}
 
 	function applyTheme(theme) {

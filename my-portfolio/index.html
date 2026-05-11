@@ -135,16 +135,16 @@
 
         <section id="dovednosti" class="karta">
             <h2>Dovednosti</h2>
-            <ul class="seznam-dovednosti" itemscope itemtype="https://schema.org/Thing">
-                <li itemprop="name">HTML</li>
-                <li itemprop="name">CSS</li>
-                <li itemprop="name">JavaScript</li>
-                <li itemprop="name">Python</li>
-                <li itemprop="name">C++</li>
-                <li itemprop="name">C#</li>
-                <li itemprop="name">PHP</li>
-                <li itemprop="name">MySQL</li>
-                <li itemprop="name">Blender</li>
+            <ul class="seznam-dovednosti" itemscope itemtype="https://schema.org/ItemList">
+                <link itemprop="itemListOrder" href="https://schema.org/ItemListUnordered" />
+                <li itemprop="itemListElement">HTML</li>
+                <li itemprop="itemListElement">CSS</li>
+                <li itemprop="itemListElement">JavaScript</li>
+                <li itemprop="itemListElement">Blender</li>
+                <li itemprop="itemListElement">MySQL</li>
+                <li itemprop="itemListElement">PHP</li>
+                <li itemprop="itemListElement">C#</li>
+                <li itemprop="itemListElement">C++</li>
             </ul>
         </section>
 
@@ -187,9 +187,31 @@
         </section>
 
         <section id="projects" class="karta github-projects" aria-labelledby="github-projects-heading"></section>
-
-        
     </main>
+
+    <!-- Floating Chat Widget -->
+    <button id="chat-bubble" class="chat-bubble" aria-label="Otevřít chat" aria-expanded="false">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+    </button>
+
+    <div id="chat-modal" class="chat-modal" hidden>
+        <div class="chat-modal__container">
+            <div class="chat-modal__header">
+                <h2>Zeptej se mě</h2>
+                <button id="chat-close" class="chat-modal__close" aria-label="Zavřít chat">&times;</button>
+            </div>
+            <div class="chat-modal__body">
+                <p class="chat-modal__intro">Ptej se na mé dovednosti, projekty nebo pozadí.</p>
+                <div id="chat-response" aria-live="polite" class="chat-response"></div>
+            </div>
+            <div class="chat-modal__footer">
+                <input type="text" id="chat-input" placeholder="např. Jaké jazyky znáš?" aria-label="Tvá otázka">
+                <button id="chat-send">Poslat</button>
+            </div>
+        </div>
+    </div>
 
     <footer id="kontakt" class="karta karta--footer">
         <h2>Kontakt</h2>
