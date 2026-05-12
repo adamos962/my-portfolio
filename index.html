@@ -188,9 +188,40 @@
         </section>
 
         <section id="projects" class="karta github-projects" aria-labelledby="github-projects-heading"></section>
-    </main>
 
-    <!-- Floating Chat Widget -->
+        <section id="kontakt" class="karta contact-section">
+            <h2>Kontakt</h2>
+            <p>Ozvi se mi a probereme spolupráci, projekty nebo jakýkoli dotaz.</p>
+            <form name="kontaktni-formular" method="POST" action="/thank-you.html" data-netlify="true" data-netlify-honeypot="bot-field" class="contact-form">
+                <input type="hidden" name="form-name" value="kontaktni-formular">
+                <p style="display:none;">
+                    <label>Nevyplňujte toto pole: <input name="bot-field" /></label>
+                </p>
+                <div class="contact-form__field">
+                    <label for="contact-name">Jméno</label>
+                    <input id="contact-name" name="name" type="text" autocomplete="name" required>
+                </div>
+                <div class="contact-form__field">
+                    <label for="contact-email">Email</label>
+                    <input id="contact-email" name="email" type="email" autocomplete="email" required>
+                </div>
+                <div class="contact-form__field">
+                    <label for="contact-subject">Předmět</label>
+                    <input id="contact-subject" name="subject" type="text" required>
+                </div>
+                <div class="contact-form__field">
+                    <label for="contact-message">Zpráva</label>
+                    <textarea id="contact-message" name="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="weather-widget__button">Odeslat</button>
+            </form>
+            <address class="kontakt-data">
+                <p>Email: <a href="mailto:novaka.07@spst.eu">novaka.07@spst.eu</a></p>
+                <p>GitHub: <a href="https://github.com/adamos962" target="_blank" rel="noopener noreferrer">github.com/adamos962</a></p>
+            </address>
+        </section>
+    </main>
+    
     <button id="chat-bubble" class="chat-bubble" aria-label="Otevřít chat" aria-expanded="false">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
@@ -213,14 +244,6 @@
             </div>
         </div>
     </div>
-
-    <footer id="kontakt" class="karta karta--footer">
-        <h2>Kontakt</h2>
-        <address class="kontakt-data">
-            <p>Email: <a href="mailto:novaka.07@spst.eu">novaka.07@spst.eu</a></p>
-            <p>GitHub: <a href="https://github.com/adamos962" target="_blank" rel="noopener noreferrer">github.com/adamos962</a></p>
-        </address>
-    </footer>
     <script src="script.js" defer></script>
 </body>
 </html>

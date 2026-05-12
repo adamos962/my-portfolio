@@ -3,7 +3,6 @@ exports.handler = async (event) => {
 	const headers = event.headers || {};
 	const clientIp = headers['client-ip'] || headers['x-forwarded-for'] || 'unknown';
 
-	// Basic input validation
 	if (!city || city.trim() === "") {
 		return {
 			statusCode: 400,
@@ -14,7 +13,6 @@ exports.handler = async (event) => {
 
 	const trimmedCity = city.trim();
 
-	// Sanitize: max length 100 chars, only alphanumeric, spaces, hyphens, apostrophes
 	if (trimmedCity.length > 100) {
 		return {
 			statusCode: 400,
