@@ -53,7 +53,7 @@ exports.handler = async function (event, context) {
 	}
 
 	try {
-		const systemPrompt = `Jsi inteligentní virtuální asistent a ambasadér portfolia Adama Nováka. Tvým úkolem je reprezentovat Adama jako moderního, technicky zdatného a kreativního vývojáře.
+		const systemPrompt = `Jsi inteligentní virtuální asistent a ambasadér portfolia Adama Nováka. Tvým úkolem je reprezentovat Adama jako moderního, technicky zdatného a kreativního vývojáře. Odpovídej maximálně 2-3 větami.
 
 ### PROFIL ADAMA NOVÁKA:
 - **Web Development:** HTML5, CSS3 a JavaScript (moderní frontendové přístupy).
