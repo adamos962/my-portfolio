@@ -10,7 +10,8 @@ exports.handler = async function (event, context) {
     const { name, email, subject, message } = JSON.parse(event.body);
 
     const supabaseUrl = process.env.SUPABASE_URL;
-    const supabaseKey = process.env.SUPABASE_ANON_KEY;
+    // prefer service role key for server-side writes, fallback to anon key
+    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY;
 
     if (!supabaseUrl || !supabaseKey) {
       return {
@@ -19,24 +20,29 @@ exports.handler = async function (event, context) {
       };
     }
 
-    const response = await fetch(
-      supabaseUrl + '/rest/v1/messages',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'apikey': supabaseKey,
-          'Authorization': 'Bearer ' + supabaseKey,
-          'Prefer': 'return=minimal'
-        },
-        body: JSON.stringify({ name, email, subject, message })
-      }
-    );
+    const url = supabaseUrl + '/rest/v1/messages';
+    const bodyPayload = { name, email, subject, message };
+
+    // Log request for easier debugging in function logs
+    console.log('save-message: posting to', url, 'payload:', bodyPayload ? Object.keys(bodyPayload) : null);
+
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': supabaseKey,
+        'Authorization': 'Bearer ' + supabaseKey,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(bodyPayload)
+    });
 
     if (!response.ok) {
+      const text = await response.text().catch(() => 'unable to read response body');
+      console.error('save-message: supabase error', response.status, text);
       return {
-        statusCode: 500,
-        body: 'Failed to save message'
+        statusCode: response.status || 500,
+        body: `Failed to save message: ${text}`
       };
     }
 
