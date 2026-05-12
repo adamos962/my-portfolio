@@ -324,18 +324,59 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	loadGitHubProjects("adamos962");
 
-	// Netlify form loading state: disable submit button and show "Sending..."
+	// Netlify form submission + Supabase save: attempt background save, but never block Netlify submit
 	const contactForm = document.querySelector("form[name=kontaktni-formular]");
 	if (contactForm) {
 		contactForm.addEventListener("submit", (e) => {
+			// show loading state immediately
 			const btn = contactForm.querySelector("button[type=submit]") || contactForm.querySelector("button");
-			if (!btn) return;
-			btn.dataset.origText = btn.textContent;
-			btn.textContent = "Odesílám...";
-			btn.disabled = true;
-			// fallback: re-enable after 15s in case navigation is prevented
+			if (btn) {
+				btn.dataset.origText = btn.textContent;
+				btn.textContent = "Odesílám...";
+				btn.disabled = true;
+			}
+
+			// Collect form values
+			const formData = new FormData(contactForm);
+			const payload = {
+				name: formData.get('name') || '',
+				email: formData.get('email') || '',
+				subject: formData.get('subject') || '',
+				message: formData.get('message') || ''
+			};
+
+			// Try navigator.sendBeacon first (survives navigation), otherwise use fetch with keepalive
+			try {
+				if (navigator && typeof navigator.sendBeacon === 'function') {
+					const blob = new Blob([JSON.stringify(payload)], { type: 'application/json' });
+					try {
+						navigator.sendBeacon('/.netlify/functions/save-message', blob);
+					} catch (e) {
+						// sendBeacon may throw in some contexts — fall back to fetch
+						fetch('/.netlify/functions/save-message', {
+							method: 'POST',
+							headers: { 'Content-Type': 'application/json' },
+							body: JSON.stringify(payload),
+							keepalive: true
+						}).catch(() => {});
+					}
+				} else {
+					// fetch with keepalive; do not await — do not block navigation
+					fetch('/.netlify/functions/save-message', {
+						method: 'POST',
+						headers: { 'Content-Type': 'application/json' },
+						body: JSON.stringify(payload),
+						keepalive: true
+					}).catch(() => {});
+				}
+			} catch (err) {
+				// ignore any errors — do not block user submission
+			}
+
+			// Allow normal form submission to proceed to Netlify (do not call preventDefault)
+			// If navigation is prevented by other scripts, re-enable button after timeout
 			setTimeout(() => {
-				if (document.body.contains(btn)) {
+				if (btn && document.body.contains(btn)) {
 					btn.disabled = false;
 					btn.textContent = btn.dataset.origText || btn.textContent;
 				}
