@@ -34,6 +34,23 @@ body {
 		var(--bg);
 }
 
+.thank-you-page {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+.thank-you-page .obsah {
+	flex: 1;
+	display: flex;
+	align-items: flex-start;
+}
+
+.thank-you-page .obsah .karta {
+	width: 100%;
+	margin-top: 28px;
+}
+
 .hero, .obsah, .karta--footer {
 	max-width: var(--page-width);
 	margin: 0 auto;
