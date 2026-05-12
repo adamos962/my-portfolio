@@ -98,7 +98,7 @@ exports.handler = async function (event, context) {
 			};
 		}
 
-		const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-1.5-flash-002';
+		const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
 		const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1' +
 			'/models/' + GEMINI_MODEL + ':generateContent' +
 			'?key=' + process.env.GEMINI_API_KEY;
