@@ -341,7 +341,6 @@ document.addEventListener("DOMContentLoaded", () => {
 			const payload = {
 				name: formData.get('name') || '',
 				email: formData.get('email') || '',
-				subject: formData.get('subject') || '',
 				message: formData.get('message') || ''
 			};
 

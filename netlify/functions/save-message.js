@@ -7,7 +7,7 @@ exports.handler = async function (event, context) {
   }
 
   try {
-    const { name, email, subject, message } = JSON.parse(event.body);
+    const { name, email, message } = JSON.parse(event.body);
 
     const supabaseUrl = process.env.SUPABASE_URL;
     // prefer service role key for server-side writes, fallback to anon key
@@ -21,7 +21,7 @@ exports.handler = async function (event, context) {
     }
 
     const url = supabaseUrl + '/rest/v1/messages';
-    const bodyPayload = { name, email, subject, message };
+    const bodyPayload = { name, email, message };
 
     // Log request for easier debugging in function logs
     console.log('save-message: posting to', url, 'payload:', bodyPayload ? Object.keys(bodyPayload) : null);
