@@ -13,8 +13,12 @@ body.dark-mode {
 	--surface: #d7bb86;
 	--ink: #1f1f22;
 	--muted: #5f5a54;
-	--line: rgba(31, 31, 34, 0.14);
-	--accent: #8b5e2d;
+	--line: rgba(242, 234, 223, 0.14);
+	--accent: #e0a35f;
+
+	/* additional semantic color tokens */
+	--color-primary: var(--accent);
+	--color-muted: var(--muted);
 }
 
 * {
@@ -555,10 +559,22 @@ h1.typewriter {
 	width: 100%;
 }
 .contact-form textarea { min-height: 120px; resize: vertical; }
-.contact-form input:focus, .contact-form textarea:focus {
-	outline: none;
-	border-color: var(--accent);
+
+/* Focus using semantic color token */
+.contact-form input:focus,
+.contact-form textarea:focus,
+.contact-form select:focus {
+	outline: 2px solid var(--color-primary);
+	border-color: var(--color-primary);
 	box-shadow: 0 8px 24px rgba(224, 163, 95, 0.06);
+}
+
+/* Disabled / loading button state */
+.contact-form button[disabled],
+.contact-form button:disabled {
+	opacity: 0.7;
+	cursor: not-allowed;
+	transform: none;
 }
 .contact-form button {
 	margin-top: 6px;

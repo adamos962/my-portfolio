@@ -323,4 +323,23 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 
 	loadGitHubProjects("adamos962");
+
+	// Netlify form loading state: disable submit button and show "Sending..."
+	const contactForm = document.querySelector("form[name=kontaktni-formular]");
+	if (contactForm) {
+		contactForm.addEventListener("submit", (e) => {
+			const btn = contactForm.querySelector("button[type=submit]") || contactForm.querySelector("button");
+			if (!btn) return;
+			btn.dataset.origText = btn.textContent;
+			btn.textContent = "Odesílám...";
+			btn.disabled = true;
+			// fallback: re-enable after 15s in case navigation is prevented
+			setTimeout(() => {
+				if (document.body.contains(btn)) {
+					btn.disabled = false;
+					btn.textContent = btn.dataset.origText || btn.textContent;
+				}
+			}, 15000);
+		});
+	}
 });
