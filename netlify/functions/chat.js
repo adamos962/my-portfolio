@@ -1,8 +1,26 @@
+function corsHeaders() {
+	return {
+		"Content-Type": "application/json",
+		"Access-Control-Allow-Origin": "https://adameknovacek.netlify.app",
+		"Access-Control-Allow-Methods": "POST, OPTIONS",
+		"Access-Control-Allow-Headers": "Content-Type",
+		"Access-Control-Max-Age": "86400",
+	};
+}
+
 exports.handler = async function (event, context) {
+	if (event.httpMethod === 'OPTIONS') {
+		return {
+			statusCode: 200,
+			headers: corsHeaders(),
+			body: ''
+		};
+	}
+
 	if (event.httpMethod !== 'POST') {
 		return {
 			statusCode: 405,
-			headers: { 'Allow': 'POST' },
+			headers: corsHeaders(),
 			body: 'Metoda není povolena'
 		};
 	}
@@ -14,7 +32,7 @@ exports.handler = async function (event, context) {
 		if (!message) {
 			return {
 				statusCode: 400,
-				headers: { 'Content-Type': 'application/json' },
+				headers: corsHeaders(),
 				body: JSON.stringify({ error: 'Chybějící zpráva' })
 			};
 		}
@@ -24,7 +42,7 @@ exports.handler = async function (event, context) {
 		if (!process.env.GEMINI_API_KEY) {
 			return {
 				statusCode: 500,
-				headers: { 'Content-Type': 'application/json' },
+				headers: corsHeaders(),
 				body: JSON.stringify({ error: 'GEMINI_API_KEY není nastaven' })
 			};
 		}
@@ -48,14 +66,14 @@ exports.handler = async function (event, context) {
 			if (response.status === 429) {
 				return {
 					statusCode: 429,
-					headers: { 'Content-Type': 'application/json' },
+					headers: corsHeaders(),
 					body: JSON.stringify({ error: 'Rate limit', details: text, retryAfter })
 				};
 			}
 
 			return {
 				statusCode: response.status || 500,
-				headers: { 'Content-Type': 'application/json' },
+				headers: corsHeaders(),
 				body: JSON.stringify({ error: 'Žádost selhala', details: text })
 			};
 		}
@@ -65,13 +83,13 @@ exports.handler = async function (event, context) {
 
 		return {
 			statusCode: 200,
-			headers: { 'Content-Type': 'application/json' },
+			headers: corsHeaders(),
 			body: JSON.stringify({ reply })
 		};
 	} catch (err) {
 		return {
 			statusCode: 500,
-			headers: { 'Content-Type': 'application/json' },
+			headers: corsHeaders(),
 			body: JSON.stringify({ error: err.message })
 		};
 	}
