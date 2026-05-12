@@ -48,7 +48,7 @@ exports.handler = async function (event, context) {
 		}
 
 		const GEMINI_MODEL = 'gemini-1.5-flash';
-		const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta' +
+		const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1' +
 			'/models/' + GEMINI_MODEL + ':generateContent' +
 			'?key=' + process.env.GEMINI_API_KEY;
 
