@@ -31,7 +31,8 @@
     <link rel="canonical" href="https://adameknovacek.netlify.app/">
     <link rel="preconnect" href="https://api.openweathermap.org">
     <link rel="dns-prefetch" href="https://github.com">
-    <link rel="stylesheet" href="style.css">
+    <link rel="preload" href="style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="style.css"></noscript>
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
