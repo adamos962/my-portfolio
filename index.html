@@ -109,6 +109,7 @@
             <nav aria-label="Hlavní navigace">
                 <a href="index.html" aria-current="page">Domů</a>
                 <a href="projekty.html">Projekty a Práce</a>
+                <a href="dovednosti.html">Dovednosti</a>
                 <a href="#kontakt">Kontakt</a>
                 <button type="button" data-theme-toggle>Tmavý režim</button>
             </nav>
@@ -145,21 +146,7 @@
             </aside>
         </section>
 
-        <section id="dovednosti" class="karta">
-            <h2>Dovednosti</h2>
-            <ul class="seznam-dovednosti" itemscope itemtype="https://schema.org/ItemList">
-                <link itemprop="itemListOrder" href="https://schema.org/ItemListUnordered" />
-                <li itemprop="itemListElement">HTML</li>
-                <li itemprop="itemListElement">CSS</li>
-                <li itemprop="itemListElement">JavaScript</li>
-                <li itemprop="itemListElement">Blender</li>
-                <li itemprop="itemListElement">MySQL</li>
-                <li itemprop="itemListElement">PHP</li>
-                <li itemprop="itemListElement">C#</li>
-                <li itemprop="itemListElement">C++</li>
-                <li itemprop="itemListElement">Atmel studio</li>
-            </ul>
-        </section>
+        <!-- Dovednosti moved to separate page: dovednosti.html -->
 
         <section id="weather" class="karta weather-widget">
             <div class="weather-widget__intro">
@@ -206,7 +193,7 @@
             <p>Ozvi se mi a probereme spolupráci, projekty nebo jakýkoli dotaz.</p>
             <form name="kontaktni-formular" method="POST" action="/thank-you.html" data-netlify="true" data-netlify-honeypot="bot-field" class="contact-form">
                 <input type="hidden" name="form-name" value="kontaktni-formular">
-                <p style="display:none;">
+                <p class="contact-form__honeypot">
                     <label>Nevyplňujte toto pole: <input name="bot-field" /></label>
                 </p>
                 <div class="contact-form__field">

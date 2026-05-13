@@ -79,7 +79,9 @@
                 <span>Adam Novak | Portfolio</span>
             </a>
             <nav aria-label="Hlavni navigace">
-                <a href="index.html">Hlavní stránka</a>
+                <a href="index.html">Domů</a>
+                <a href="projekty.html" aria-current="page">Projekty a Práce</a>
+                <a href="dovednosti.html">Dovednosti</a>
                 <a href="index.html#kontakt">Kontakt</a>
                 <button type="button" data-theme-toggle>Tmavý režim</button>
             </nav>
@@ -125,7 +127,7 @@
             </ul>
         </section>
 
-        <h2>Práce</h2>
+        <h1>Práce</h1>
         <p class="hero__subtitle">Věci, na kterých aktivně pracuji.</p>
         
         <section class="karta">
@@ -179,6 +181,19 @@
             </div>
             <div class="work-image">
                 <img src="ukazkablender.png" alt="3D model a rendering z Blenderu s Cycles renderovacím enginem" itemprop="image">
+            </div>
+        </article>
+
+        <article class="work-item work-item--with-img" itemscope itemtype="https://schema.org/CreativeWork">
+            <div class="work-content">
+                <h3 itemprop="name">Kybernetická bezpečnost</h3>
+                <p class="work-text" itemprop="description">
+                    Součástí výuky také objevuji základy kybernetické bezpečnosti na jednoduchých sandboxových cvičení (TryHackMe, Butca)
+                </p>
+                <p class="stack" itemprop="keywords">WireShark, Nmap, BurpSuite</p>
+            </div>
+            <div class="work-image">
+                <img src="tryhackme.png" alt="Ukázka z testu v TryHackMe" itemprop="image">
             </div>
         </article>
     </div>
