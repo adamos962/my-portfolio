@@ -248,6 +248,13 @@ async function sendChatMessage(msg) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+	// Check if GA is loaded
+	if (typeof gtag !== "undefined") {
+		console.log("✓ Google Analytics loaded successfully");
+	} else {
+		console.warn("⚠ Google Analytics script not yet available on DOMContentLoaded");
+	}
+
 	greetVisitor();
 
 	const weatherSearchButton = document.querySelector("[data-weather-search]");
@@ -376,9 +383,12 @@ document.addEventListener("DOMContentLoaded", () => {
 	function trackEvent(eventName, eventParams = {}) {
 		const trackWithRetry = (attempts = 0) => {
 			if (typeof gtag !== "undefined") {
+				console.log("✓ GA Event sent:", eventName, eventParams);
 				gtag("event", eventName, eventParams);
 			} else if (attempts < 10) {
 				setTimeout(() => trackWithRetry(attempts + 1), 100);
+			} else {
+				console.warn("✗ gtag not available after retries for:", eventName);
 			}
 		};
 		trackWithRetry();
