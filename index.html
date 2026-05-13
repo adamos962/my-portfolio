@@ -101,7 +101,12 @@
     <header class="hero">
         <div class="hero__topbar">
             <a class="hero__brand" href="index.html" aria-label="Přejít na hlavní stránku">
-                <img class="hero__logo hero__logo--large" src="LOGO.webp" alt="Logo Adam Novák">
+                    <img class="hero__logo hero__logo--large" src="LOGO.webp"
+                         srcset="LOGO-64.webp 64w, LOGO-128.webp 128w, LOGO.webp 361w"
+                         sizes="(max-width: 600px) 48px, 49px"
+                         width="49" height="50"
+                         decoding="async" loading="lazy"
+                         alt="Logo Adam Novák">
                 <span>Adam Novák | Portfolio</span>
             </a>
             <nav aria-label="Hlavní navigace">
