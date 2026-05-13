@@ -156,7 +156,7 @@ async function loadWeather(city) {
 		return;
 	}
 
-	if (!/^[a-zA-Z0-9\s\-'áíéóúůčšžĎŇŔŠŽ]+$/u.test(name)) {
+	if (!/^[a-zA-Z0-9\s\-'áíéóúůčšžěřťňďÁÉĚÍÓŮÚČŘŠŽŤŇĎ]+$/u.test(name)) {
 		clearWeatherCard();
 		showWeatherMessage("Název obsahuje nepovolené znaky.");
 		return;
@@ -324,11 +324,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	loadGitHubProjects("adamos962");
 
-	// Netlify form submission + Supabase save: attempt background save, but never block Netlify submit
 	const contactForm = document.querySelector("form[name=kontaktni-formular]");
 	if (contactForm) {
 		contactForm.addEventListener("submit", (e) => {
-			// show loading state immediately
 			const btn = contactForm.querySelector("button[type=submit]") || contactForm.querySelector("button");
 			if (btn) {
 				btn.dataset.origText = btn.textContent;
@@ -336,7 +334,6 @@ document.addEventListener("DOMContentLoaded", () => {
 				btn.disabled = true;
 			}
 
-			// Collect form values
 			const formData = new FormData(contactForm);
 			const payload = {
 				name: formData.get('name') || '',
@@ -344,14 +341,12 @@ document.addEventListener("DOMContentLoaded", () => {
 				message: formData.get('message') || ''
 			};
 
-			// Try navigator.sendBeacon first (survives navigation), otherwise use fetch with keepalive
 			try {
 				if (navigator && typeof navigator.sendBeacon === 'function') {
 					const blob = new Blob([JSON.stringify(payload)], { type: 'application/json' });
 					try {
 						navigator.sendBeacon('/.netlify/functions/save-message', blob);
 					} catch (e) {
-						// sendBeacon may throw in some contexts — fall back to fetch
 						fetch('/.netlify/functions/save-message', {
 							method: 'POST',
 							headers: { 'Content-Type': 'application/json' },
@@ -360,7 +355,6 @@ document.addEventListener("DOMContentLoaded", () => {
 						}).catch(() => {});
 					}
 				} else {
-					// fetch with keepalive; do not await — do not block navigation
 					fetch('/.netlify/functions/save-message', {
 						method: 'POST',
 						headers: { 'Content-Type': 'application/json' },
@@ -369,11 +363,7 @@ document.addEventListener("DOMContentLoaded", () => {
 					}).catch(() => {});
 				}
 			} catch (err) {
-				// ignore any errors — do not block user submission
 			}
-
-			// Allow normal form submission to proceed to Netlify (do not call preventDefault)
-			// If navigation is prevented by other scripts, re-enable button after timeout
 			setTimeout(() => {
 				if (btn && document.body.contains(btn)) {
 					btn.disabled = false;
@@ -382,4 +372,40 @@ document.addEventListener("DOMContentLoaded", () => {
 			}, 15000);
 		});
 	}
+
+	// Track form submission
+	const formElement = document.querySelector("form[name=kontaktni-formular]");
+	if (formElement) {
+		formElement.addEventListener("submit", () => {
+			if (typeof gtag !== "undefined") {
+				gtag("event", "form_submit", {
+					event_category: "engagement",
+					event_label: "contact_form"
+				});
+			}
+		});
+	}
+
+	// Track AI chat usage
+	const chatSendBtn = document.querySelector("#chat-send");
+	if (chatSendBtn) {
+		chatSendBtn.addEventListener("click", () => {
+			if (typeof gtag !== "undefined") {
+				gtag("event", "ai_chat_used", {
+					event_category: "engagement"
+				});
+			}
+		});
+	}
+
+	// Track GitHub profile link clicks
+	document.querySelectorAll('a[href*="github.com"]').forEach(link => {
+		link.addEventListener("click", () => {
+			if (typeof gtag !== "undefined") {
+				gtag("event", "github_click", {
+					event_category: "outbound"
+				});
+			}
+		});
+	});
 });
