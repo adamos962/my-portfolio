@@ -21,7 +21,7 @@ exports.handler = async (event) => {
 		};
 	}
 
-	if (!/^[a-zA-Z0-9\s\-'áíéóúůčšžĎŇŔŠŽ]+$/u.test(trimmedCity)) {
+	if (!/^[\p{L}\p{N}\s'.-]+$/u.test(trimmedCity)) {
 		return {
 			statusCode: 400,
 			body: JSON.stringify({ error: "Název města obsahuje nepovolené znaky" }),

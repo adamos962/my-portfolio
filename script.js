@@ -107,7 +107,7 @@ async function loadWeather(e) {
     const t = e.trim();
     if (!t) return clearWeatherCard(), void showWeatherMessage("Zadej název města.");
     if (t.length > 100) return clearWeatherCard(), void showWeatherMessage("Název města je příliš dlouhý.");
-    if (!/^[a-zA-Z0-9\s\-'áíéóúůčšžěřťňďÁÉĚÍÓŮÚČŘŠŽŤŇĎ]+$/u.test(t))
+    if (!/^[\p{L}\p{N}\s'.-]+$/u.test(t))
         return clearWeatherCard(), void showWeatherMessage("Název obsahuje nepovolené znaky.");
     try {
         const e = await fetch(`/.netlify/functions/weather?city=${encodeURIComponent(t)}`);
