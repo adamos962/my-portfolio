@@ -373,39 +373,41 @@ document.addEventListener("DOMContentLoaded", () => {
 		});
 	}
 
-	// Track form submission
+	function trackEvent(eventName, eventParams = {}) {
+		const trackWithRetry = (attempts = 0) => {
+			if (typeof gtag !== "undefined") {
+				gtag("event", eventName, eventParams);
+			} else if (attempts < 10) {
+				setTimeout(() => trackWithRetry(attempts + 1), 100);
+			}
+		};
+		trackWithRetry();
+	}
+
 	const formElement = document.querySelector("form[name=kontaktni-formular]");
 	if (formElement) {
 		formElement.addEventListener("submit", () => {
-			if (typeof gtag !== "undefined") {
-				gtag("event", "form_submit", {
-					event_category: "engagement",
-					event_label: "contact_form"
-				});
-			}
+			trackEvent("form_submit", {
+				event_category: "engagement",
+				event_label: "contact_form"
+			});
 		});
 	}
 
-	// Track AI chat usage
 	const chatSendBtn = document.querySelector("#chat-send");
 	if (chatSendBtn) {
 		chatSendBtn.addEventListener("click", () => {
-			if (typeof gtag !== "undefined") {
-				gtag("event", "ai_chat_used", {
-					event_category: "engagement"
-				});
-			}
+			trackEvent("ai_chat_used", {
+				event_category: "engagement"
+			});
 		});
 	}
 
-	// Track GitHub profile link clicks
 	document.querySelectorAll('a[href*="github.com"]').forEach(link => {
 		link.addEventListener("click", () => {
-			if (typeof gtag !== "undefined") {
-				gtag("event", "github_click", {
-					event_category: "outbound"
-				});
-			}
+			trackEvent("github_click", {
+				event_category: "outbound"
+			});
 		});
 	});
 });
