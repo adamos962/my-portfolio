@@ -207,6 +207,29 @@
             <p>GitHub: <a href="https://github.com/adamos962" target="_blank" rel="noopener noreferrer">github.com/adamos962</a></p>
         </address>
     </footer>
+
+    <button id="chat-bubble" class="chat-bubble" aria-label="Otevřít chat" aria-expanded="false">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+    </button>
+
+    <div id="chat-modal" class="chat-modal" hidden>
+        <div class="chat-modal__container">
+            <div class="chat-modal__header">
+                <h2>Zeptej se mě</h2>
+                <button id="chat-close" class="chat-modal__close" aria-label="Zavřít chat">&times;</button>
+            </div>
+            <div class="chat-modal__body">
+                <p class="chat-modal__intro">Ptej se na mé dovednosti, projekty nebo pozadí.</p>
+                <div id="chat-response" aria-live="polite" class="chat-response"></div>
+            </div>
+            <div class="chat-modal__footer">
+                <input type="text" id="chat-input" placeholder="např. Jaké jazyky znáš?" aria-label="Tvá otázka">
+                <button id="chat-send">Poslat</button>
+            </div>
+        </div>
+    </div>
     <script src="script.js" defer></script>
 </body>
 </html>
