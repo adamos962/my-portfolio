@@ -1,5 +1,7 @@
 exports.handler = async (event) => {
 	const city = event.queryStringParameters?.city;
+	const languageParam = event.queryStringParameters?.lang;
+	const weatherLanguage = ["cs", "en", "es"].includes(languageParam) ? languageParam : "cs";
 	const headers = event.headers || {};
 	const clientIp = headers['client-ip'] || headers['x-forwarded-for'] || 'unknown';
 
@@ -40,7 +42,7 @@ exports.handler = async (event) => {
 
 	try {
 		const response = await fetch(
-			`https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(trimmedCity)}&appid=${apiKey}&units=metric&lang=cs`
+			`https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(trimmedCity)}&appid=${apiKey}&units=metric&lang=${weatherLanguage}`
 		);
 
 		if (!response.ok) {
