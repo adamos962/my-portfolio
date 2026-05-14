@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Životopis Adama Nováka – studium, dovednosti, projekty a kontakt.">
+    <meta name="author" content="Adam Novák">
+    <meta name="theme-color" content="#0f0f10">
+    <title>Životopis | Adam Novák</title>
+    <link rel="icon" type="image/webp" href="LOGO.webp">
+    <link rel="canonical" href="https://adameknovacek.netlify.app/zivotopis.html">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body class="cv-page">
+    <header class="hero">
+        <div class="hero__topbar">
+            <a class="hero__brand" href="index.html" aria-label="Přejít na hlavní stránku">
+                <img class="hero__logo hero__logo--large" src="LOGO.webp" alt="Logo Adam Novák">
+                <span>Adam Novák | Portfolio</span>
+            </a>
+            <nav aria-label="Hlavní navigace">
+                <a href="index.html">Domů</a>
+                <a href="projekty.html">Projekty a Práce</a>
+                <a href="dovednosti.html">Dovednosti</a>
+                <a href="zivotopis.html" aria-current="page">Životopis</a>
+                <a href="index.html#kontakt">Kontakt</a>
+                <button type="button" data-theme-toggle>Tmavý režim</button>
+            </nav>
+        </div>
+        <h1>Životopis</h1>
+        <p class="hero__subtitle">Přehled studia, dovedností a vybraných zkušeností.</p>
+    </header>
+
+    <main class="obsah">
+        <section id="cv-profile" class="karta">
+            <h2>Profil</h2>
+            <p>
+                Jsem student se zaměřením na webový vývoj, programování a technické projekty. Baví mě stavět čisté a funkční weby a zároveň si rozšiřovat záběr i do oblasti hardwaru, sítí a bezpečnosti.
+            </p>
+        </section>
+
+        <section id="cv-education" class="karta">
+            <h2>Vzdělání</h2>
+            <ul class="cv-list">
+                <li><span>2014–2023</span> Základní škola Český Rudolec</li>
+                <li><span>2023 – současnost</span>SPŠ Třebíč, obor s IT zaměřením</li>
+            </ul>
+        </section>
+
+        <section id="cv-skills" class="karta">
+            <h2>Dovednosti</h2>
+            <ul class="cv-list">
+                <li>HTML, CSS, JavaScript</li>
+                <li>C++ / C#</li>
+                <li>MySQL / SQL</li>
+                <li>Git &amp; GitHub</li>
+                <li>Blender</li>
+                <li>Základy kybernetické bezpečnosti a sítí</li>
+            </ul>
+        </section>
+
+        <section id="cv-projects" class="karta">
+            <h2>Vybrané oblasti</h2>
+            <ul class="cv-list">
+                <li>Webové projekty a formuláře</li>
+                <li>3D modelování a asset pipeline</li>
+                <li>Mikrokontroléry, hardware a sítě</li>
+            </ul>
+        </section>
+
+        <section id="cv-contact" class="karta contact-section">
+            <h2>Kontakt</h2>
+            <p>Adam Novák • novaka.07@spst.eu</p>
+            <a id="cv-download" class="back-link" href="CV.pdf" target="_blank" rel="noopener noreferrer" download>Stáhnout CV</a>
+            <form name="kontaktni-formular" method="POST" action="/thank-you.html" data-netlify="true" data-netlify-honeypot="bot-field" class="contact-form">
+                <input type="hidden" name="form-name" value="kontaktni-formular">
+                <p class="contact-form__honeypot">
+                    <label>Nevyplňujte toto pole: <input name="bot-field" /></label>
+                </p>
+                <div class="contact-form__field">
+                    <label for="cv-contact-name">Jméno</label>
+                    <input id="cv-contact-name" name="name" type="text" autocomplete="name" required>
+                </div>
+                <div class="contact-form__field">
+                    <label for="cv-contact-email">Email</label>
+                    <input id="cv-contact-email" name="email" type="email" autocomplete="email" required>
+                </div>
+                <div class="contact-form__field">
+                    <label for="cv-contact-message">Zpráva</label>
+                    <textarea id="cv-contact-message" name="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="weather-widget__button">Odeslat</button>
+            </form>
+        </section>
+    </main>
+
+    <button id="chat-bubble" class="chat-bubble" aria-label="Otevřít chat" aria-expanded="false">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+    </button>
+
+    <div id="chat-modal" class="chat-modal" hidden>
+        <div class="chat-modal__container">
+            <div class="chat-modal__header">
+                <h2>Zeptej se mě</h2>
+                <button id="chat-close" class="chat-modal__close" aria-label="Zavřít chat">&times;</button>
+            </div>
+            <div class="chat-modal__body">
+                <p class="chat-modal__intro">Ptej se na mé dovednosti, projekty nebo pozadí.</p>
+                <div id="chat-response" aria-live="polite" class="chat-response"></div>
+            </div>
+            <div class="chat-modal__footer">
+                <input type="text" id="chat-input" placeholder="např. Jaké jazyky znáš?" aria-label="Tvá otázka">
+                <button id="chat-send">Poslat</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
