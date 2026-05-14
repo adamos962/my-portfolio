@@ -660,8 +660,7 @@ function applyLanguage(e) {
         const e = document.querySelector('.contact-submit-btn span');
         e && (e.textContent = o.index.submit);
     } else if ("projects" === t) {
-        const e = document.querySelectorAll("h1");
-        e[0] && (e[0].textContent = o.projects.title), e[1] && (e[1].textContent = o.projects.workTitle);
+        setTextIfExists(".hero h1", o.projects.title), setTextIfExists(".work-section-title", o.projects.workTitle);
         const t = document.querySelectorAll(".hero__subtitle");
         t[0] && (t[0].textContent = o.projects.subtitle), t[1] && (t[1].textContent = o.projects.workSubtitle);
         const a = document.querySelectorAll(".karta h2");
