@@ -337,7 +337,9 @@ h1.typewriter {
     gap: 16px;
 }
 .github-project-card {
+    position: relative;
     padding: 18px;
+    padding-bottom: 70px;
     border: 1px solid var(--line);
     background: var(--surface);
 }
@@ -372,6 +374,36 @@ h1.typewriter {
 }
 
 /* GitHub button used on repository cards */
+.github-project-card .btn-github {
+    position: absolute;
+    bottom: 18px;
+    left: 18px;
+    cursor: pointer;
+    display: inline-flex;
+    gap: 0.5rem;
+    border: none;
+    transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+    border-radius: 100px;
+    font-weight: 800;
+    place-content: center;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.825rem;
+    line-height: 1rem;
+    background-color: rgba(0, 0, 0, 0.4);
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.04), inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+    color: #fff;
+    text-decoration: none;
+    align-items: center;
+}
+.github-project-card .btn-github svg { display: block; }
+.github-project-card .btn-github:hover {
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.08), inset 0 0 0 1px rgba(224, 163, 95, 0.2);
+    color: #e0a35f;
+    transform: translateY(-0.25rem);
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Default styling for btn-github in other contexts */
 .btn-github {
     cursor: pointer;
     display: inline-flex;
@@ -392,8 +424,8 @@ h1.typewriter {
 }
 .btn-github svg { display: block; }
 .btn-github:hover {
-    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.08), inset 0 0 0 1px rgba(252, 232, 3, 0.08);
-    color: #fce803;
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.08), inset 0 0 0 1px rgba(224, 163, 95, 0.2);
+    color: #e0a35f;
     transform: translateY(-0.25rem);
     background-color: rgba(0, 0, 0, 0.5);
 }
@@ -647,6 +679,75 @@ h1.typewriter {
 }
 .contact-form button:hover {
     filter: brightness(1.02);
+}
+
+/* Stylized submit button for contact form */
+.contact-submit-btn {
+    font-family: inherit;
+    font-size: 16px;
+    background: linear-gradient(to bottom, #e0a35f 0%, #d87752 100%);
+    color: white;
+    padding: 0.8em 1.2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 25px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s;
+    cursor: pointer;
+    margin-top: 12px;
+    font-weight: 700;
+}
+
+.contact-submit-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+.contact-submit-btn:active {
+    transform: scale(0.95);
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.contact-submit-btn span {
+    display: block;
+    margin-left: 0.4em;
+    transition: all 0.3s;
+}
+
+.contact-submit-btn svg {
+    width: 18px;
+    height: 18px;
+    fill: white;
+    transition: all 0.3s;
+}
+
+.contact-submit-btn .svg-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+    margin-right: 0.5em;
+    transition: all 0.3s;
+}
+
+.contact-submit-btn:hover .svg-wrapper {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.contact-submit-btn:hover svg {
+    transform: rotate(45deg);
+}
+
+.contact-submit-btn:disabled,
+.contact-submit-btn[disabled] {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
 }
 @media (max-width: 640px) {
     .contact-form {

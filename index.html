@@ -142,8 +142,6 @@
             </aside>
         </section>
 
-        <!-- Dovednosti moved to separate page: dovednosti.html -->
-
         <section id="weather" class="karta weather-widget">
             <div class="weather-widget__intro">
                 <h2>Počasí</h2>
@@ -187,7 +185,6 @@
         <section id="kontakt" class="karta contact-section">
             <h2>Kontakt</h2>
             <p>Ozvi se mi a probereme spolupráci, projekty nebo jakýkoli dotaz.</p>
-            <a class="back-link" href="zivotopis.html">Životopis</a>
             <form name="kontaktni-formular" method="POST" action="/thank-you.html" data-netlify="true" data-netlify-honeypot="bot-field" class="contact-form">
                 <input type="hidden" name="form-name" value="kontaktni-formular">
                 <p class="contact-form__honeypot">
@@ -205,7 +202,17 @@
                     <label for="contact-message">Zpráva</label>
                     <textarea id="contact-message" name="message" rows="5" required></textarea>
                 </div>
-                <button type="submit" class="weather-widget__button">Odeslat</button>
+                <button type="submit" class="contact-submit-btn">
+                    <div class="svg-wrapper-1">
+                        <div class="svg-wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                <path fill="currentColor" d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <span>Odeslat</span>
+                </button>
             </form>
             <address class="kontakt-data">
                 <p>Email: <a href="mailto:novaka.07@spst.eu">novaka.07@spst.eu</a></p>
